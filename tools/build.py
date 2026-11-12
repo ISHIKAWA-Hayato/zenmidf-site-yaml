@@ -158,13 +158,21 @@ def build_portal(folder, env, site):
     return len(companies)
 
 
+JR_NAMES = {"01-Hokkaido": "JR北海道", "02-East-Japan": "JR東日本", "03-Central-Japan": "JR東海",
+            "04-West-Japan": "JR西日本", "05-Shikoku": "JR四国", "06-Kyushu": "JR九州"}
+
+
 def write_station_list(everyone):
     """GAS（写真の駅の自動判定）が読む駅の一覧"""
-    coords, dups = {}, {}
+    coords, dups, nopage = {}, {}, []
     path = DATA / "_coords.csv"
     if path.exists():
         with path.open(encoding="utf-8-sig", newline="") as fh:
             for r in csv.DictReader(fh):
+                if not r.get("駅ID"):
+                    if r.get("緯度") and r.get("経度") and r.get("照合") != "除外":
+                        nopage.append(r)   # 駅ページのない駅（写真がその駅なら GAS が「未実装」に回す）
+                    continue
                 if r.get("緯度") and r.get("経度"):
                     coords[(r["会社フォルダ"], r["駅ID"])] = (float(r["緯度"]), float(r["経度"]))
                 if (r.get("同名の駅") or "1").isdigit() and int(r.get("同名の駅") or 1) > 1:
@@ -182,9 +190,18 @@ def write_station_list(everyone):
             if (folder, sid) in dups:
                 e["dup"] = dups[(folder, sid)]  # 全国に同名の駅がある（位置情報なしの OCR だけでは決めない）
             out.append(e)
+    names = {f: idx.get("会社名", f) for f, (idx, _) in everyone.items()}
+    for r in nopage:
+        folder = r["会社フォルダ"]
+        e = {"code": folder.rsplit("/", 1)[-1][:2], "folder": folder, "id": "", "name": r["駅名"],
+             "company": names.get(folder) or JR_NAMES.get(folder, folder), "line": r.get("路線", ""),
+             "lat": float(r["緯度"]), "lon": float(r["経度"])}
+        if (r.get("同名の駅") or "1").isdigit() and int(r.get("同名の駅") or 1) > 1:
+            e["dup"] = int(r["同名の駅"])
+        out.append(e)
     (DIST / "station-individual" / "stations.json").write_text(
         json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    return len(out), sum(1 for e in out if "lat" in e)
+    return len(out) - len(nopage), sum(1 for e in out if "lat" in e and e["id"]), len(nopage)
 
 
 def menu_html(site, skip_home=False):
@@ -225,8 +242,8 @@ def main():
     for folder in sorted(p.parent for p in DATA.rglob("_portal.yaml")):
         n = build_portal(folder, env, site)
         print(f"{folder.relative_to(DATA).as_posix()}: 入口ページ（{n} 社）")
-    n, located = write_station_list(everyone)
-    print(f"stations.json: {n} 駅（座標あり {located}）")
+    n, located, nopage = write_station_list(everyone)
+    print(f"stations.json: {n} 駅（座標あり {located}）＋ ページのない駅 {nopage}")
     if (ROOT / "pages").is_dir():
         print(f"トップ階層のページ: {build_pages(site)} 枚")
 

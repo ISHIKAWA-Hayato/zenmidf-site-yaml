@@ -7,6 +7,7 @@
  *   1. 写真の位置情報（ドライブが読み取った撮影地点）から一番近い駅
  *   2. 近い駅が複数あるときは、写真の文字を OCR で読んでその中から駅名を探す（駅舎の「○○駅」を優先）
  *   位置情報がない写真は自動では決めず「要確認」へ（OCR で読めた駅名を説明に書く。人が確認して名前を付ける）
+ *   駅ページのない駅（JR全6社と三セクの全駅が座標表にある）と判定した写真は「未実装」へ（説明に会社と路線を書く）
  *   → 1駅に決まれば「06-isahaya.jpg」のように名前を付け直して送る（ファイルの説明に判定の根拠を書く）
  *   → 決まらなければ「要確認」フォルダへ移し、説明に候補を書く。名前を付けて「受付」に戻せば次の回で送られる
  *   JR と三セクで駅舎が同じ駅（高岡・富山など）は会社が決まらないので、必ず「要確認」になる
@@ -78,13 +79,17 @@ function sendInbox() {
         } catch (e) {
           r = { review: [], why: '自動判定でエラー: ' + e.message };
         }
+        if (r.decided && !r.decided.id) {   // 駅ページのない駅と判定した（座標表にはあるが駅IDがない）
+          r = { notImplemented: true, why: r.how + 'で「' + label_(r.decided) + '」と判定しましたが、サイトにまだ駅ページがありません' };
+        }
         if (!r.decided) {
           if (r.notImplemented) {
             reject_(f, pending, '未実装の駅: ' + r.why +
                     '\n→ その駅のページができたら「会社番号-駅ID.拡張子」に名前を変えて「受付」に戻してください');
             continue;
           }
-          const cands = (r.review || []).slice(0, 5).map(s => s.code + '-' + s.id + '（' + s.name + (s.d != null ? '・' + Math.round(s.d) + 'm' : '') + '）');
+          const cands = (r.review || []).slice(0, 5).map(s => (s.id ? s.code + '-' + s.id + '（' + s.name : label_(s) + '（ページなし') +
+                                                          (s.d != null ? '・' + Math.round(s.d) + 'm' : '') + '）');
           reject_(f, review, '駅を決められませんでした: ' + r.why + (cands.length ? '\n候補: ' + cands.join(' / ') : '') +
                   '\n→ 正しい「会社番号-駅ID.拡張子」に名前を変えて「受付」に戻してください');
           continue;
@@ -148,7 +153,12 @@ function sendInbox() {
 
 // ---------- 駅の自動判定 ----------
 
-/** サイトに上がっている駅の一覧（build.py が作る stations.json） */
+/** 駅の表示名。駅ページのない駅は会社と路線を添える（例「柏原（JR西日本・福知山線）」） */
+function label_(s) {
+  return s.id ? s.code + '-' + s.id : s.name + '（' + [s.company, s.line].filter(x => x).join('・') + '）';
+}
+
+/** 駅の一覧（build.py が作る stations.json）。駅ページのない駅（id が空）も含む */
 function loadStations_() {
   const res = UrlFetchApp.fetch(STATIONS_URL, { muteHttpExceptions: true });
   if (res.getResponseCode() !== 200) throw new Error('駅の一覧（stations.json）を読めません: ' + res.getResponseCode());
@@ -166,6 +176,10 @@ function identify_(file, stations) {
       .sort((a, b) => a.d - b.d);
     if (sorted.length && sorted[0].d <= GPS_RADIUS_M) {
       near = sorted.filter(s => s.d <= sorted[0].d + GPS_MARGIN_M);
+      if (near.every(s => !s.id)) {   // 近くの駅がどれも駅ページのない駅（東京の JR東日本・JR東海 など）
+        return { notImplemented: true, why: '位置情報（駅から' + Math.round(near[0].d) + 'm）で「' + near.map(label_).join('」「') +
+                 '」と判定しましたが、サイトにまだ駅ページがありません' };
+      }
       if (near.length === 1) return { decided: near[0], how: '位置情報（駅から' + Math.round(near[0].d) + 'm）' };
       const names = unique_(near.map(s => s.bare));
       if (names.length === 1) return { review: near, why: '会社が決まらない共用駅（' + names[0] + '）' };
