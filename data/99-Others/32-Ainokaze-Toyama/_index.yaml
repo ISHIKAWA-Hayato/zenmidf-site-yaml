@@ -1,0 +1,18 @@
+会社名: あいの風とやま鉄道
+会社コード: 32
+ファイル名: 32-ainokaze-toyama.html
+説明: あいの風とやま鉄道主要各駅のデータ
+絞り込み例: 富山
+一覧クラス: station-name-otr
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, JR券取扱あり]
+- [pos_2-4-6, きっぷうりば アイコン, きっぷうりば]
+- [em_4, 定期券がお求めになれる券売機 アイコン, 定期券がお求めになれる券売機]
+アイコン規則:
+- [1, to_1-2-4-5-6, [きっぷうりば*], [], [MR*, ビジネスえきねっと]]
+- [4, pos_2-4-6, [きっぷうりば*], [], [感熱POS]]
+- [5, em_4, [定期券*]]
+路線:
+- 名称: あいの風とやま鉄道線
+  駅: [isurugi, fukuoka, nishi-takaoka, takaoka-yabunami, takaoka, etchu-daimon, kosugi, kureha, toyama, shin-toyamaguchi, higashi-toyama, mizuhashi, namerikawa, higashi-namerikawa, uozu, kurobe, ikuji,
+    nishi-nyuzen, nyuzen, tomari, etchu-miyazaki]

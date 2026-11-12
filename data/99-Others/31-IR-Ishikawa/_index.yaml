@@ -1,0 +1,17 @@
+会社名: IRいしかわ鉄道
+会社コード: 31
+ファイル名: 31-ir-ishikawa.html
+説明: IRいしかわ鉄道主要各駅のデータ
+絞り込み例: 金沢
+一覧クラス: station-name-otr
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, JR券取扱あり]
+- [pos_2-4-6, きっぷうりば アイコン, きっぷうりば]
+- [em_4, 定期券がお求めになれる券売機 アイコン, 定期券がお求めになれる券売機]
+アイコン規則:
+- [1, to_1-2-4-5-6, [きっぷうりば*], [], [MR*, ビジネスえきねっと]]
+- [4, pos_2-4-6, [きっぷうりば*], [], [感熱POS]]
+- [5, em_4, [定期券*]]
+路線:
+- 名称: IRいしかわ鉄道線
+  駅: [daishoji, kagaonsen, awazu, komatsu, nomi-neagari, mikawa, kaga-kasama, matto, nonoichi, nishi-kanazawa, kanazawa, higashi-kanazawa, morimoto, tsubata]

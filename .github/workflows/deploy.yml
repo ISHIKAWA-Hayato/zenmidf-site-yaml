@@ -1,0 +1,101 @@
+name: 生成してロリポップへアップロード
+
+on:
+  # data/ などを変更して main に push したら自動で実行（inbox/ に駅写真が置かれたときも）
+  push:
+    branches: [main]
+    paths:
+      - "inbox/**"
+      - "tools/import_images.py"
+      - "data/**"
+      - "templates/**"
+      - "pages/**"
+      - "site.yaml"
+      - "tools/build.py"
+      - ".github/workflows/deploy.yml"
+  # Actions 画面の「Run workflow」ボタンから手動実行
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "試運転（アップロードせず、何が起きるかだけ表示）"
+        type: boolean
+        default: true
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+# 取り込んだ駅写真をリポジトリに書き戻すため
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v5
+
+      - name: Python を準備
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: 道具を準備
+        run: pip install pyyaml jinja2 pillow pillow-heif
+
+      # inbox/ の「会社番号-駅ID.png」を 800×600 PNG にして data/<会社>/images/ へ（駅データの 画像: も直す）
+      - name: 駅写真を取り込む
+        id: images
+        run: python tools/import_images.py
+
+      - name: 取り込んだ写真をリポジトリに書き戻す
+        if: steps.images.outputs.done != '0' || steps.images.outputs.errors != '0' || steps.images.outputs.skipped != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add -A inbox data
+          git commit -m "駅写真を取り込み（${{ steps.images.outputs.done }}枚、上書きせず${{ steps.images.outputs.skipped }}枚、失敗${{ steps.images.outputs.errors }}枚）: ${{ steps.images.outputs.names }}"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: ページを生成
+        run: python tools/build.py
+
+      # 安全装置：リポジトリ変数 DEPLOY_ALL が "true" になるまでは常に試運転
+      # 対象：data/ にある会社（いまは JR西日本・JR四国・JR九州・私鉄・三セク9社）の駅ページと一覧
+      - name: 駅別ページをアップロード
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftp.lolipop.jp
+          protocol: ftps
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/station-individual/
+          server-dir: html/station-individual/
+          dry-run: ${{ vars.DEPLOY_ALL != 'true' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+          # 駅写真（data/<会社>/images/）もアップロードする。サーバーにしかない写真は消さない
+          exclude: |
+            **/.git*
+            **/.git*/**
+
+      # トップ階層のページ（pages/ から生成。ホーム・About US・エラーページなど）
+      # サーバーの html/ 直下に上書きする。ここで上げたことのないファイル（css・js・images など）は消さない
+      - name: トップ階層のページをアップロード
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftp.lolipop.jp
+          protocol: ftps
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/top/
+          server-dir: html/
+          state-name: .ftp-deploy-sync-state-top.json
+          dry-run: ${{ vars.DEPLOY_ALL != 'true' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+
+      # 取り込めなかった写真があれば、この実行を失敗扱いにして通知する（理由は inbox/_error/*.txt）
+      - name: 取り込めなかった写真があれば知らせる
+        if: steps.images.outputs.errors != '0' && steps.images.outputs.errors != ''
+        run: |
+          echo "::error::取り込めなかった駅写真が ${{ steps.images.outputs.errors }} 枚あります。inbox/_error/ の .txt に理由があります"
+          exit 1

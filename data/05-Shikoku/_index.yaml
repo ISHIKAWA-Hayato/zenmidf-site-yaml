@@ -1,0 +1,48 @@
+会社名: JR四国
+会社コード: 5
+ファイル名: 05-shikoku.html
+説明: ＪＲ四国主要各駅のデータ
+絞り込み例: 高松
+一覧クラス: station-name-05
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, みどりの窓口]
+- [amv_4-5, アシストマルス アイコン, みどりの券売機プラス（アシストマルス）]
+- [mv_5, 指定席券売機 アイコン, 指定席券売機]
+- [shikoku-tour, JR四国ツアー アイコン, ＪＲ四国ツアー店舗]
+アイコン規則:
+- [1, to_1-2-4-5-6, [みどりの窓口]]
+- [2, amv_4-5, [みどりの券売機プラス*]]
+- [3, mv_5, [指定席券売機]]
+- [6, shikoku-tour, [ＪＲ四国ツアー*]]
+路線:
+- 名称: 内子線
+  駅: [uchiko]
+- 名称: 高徳線
+  駅: [san_takamatsu, ritsurin, shido, sambommatsu, tokushima]
+- 名称: 徳島線（よしの川ブルーライン）
+  駅: [tokushima, kamojima, anabuki, awa-ikeda]
+- 名称: 土讃線
+  駅: [tadotsu, zentsuji, kotohira, awa-ikeda, tosa-yamada, gomen, kochi, asakura, susaki, kubokawa]
+- 名称: 鳴門線
+  駅: [tokushima, naruto]
+- 名称: 本四備讃線（瀬戸大橋線※1）
+  駅:
+  - {他社駅: 04-West-Japan/kojima}
+  - utazu
+- 名称: 牟岐線（阿波室戸シーサイドライン）
+  駅: [tokushima, anan]
+- 名称: 予讃線（瀬戸大橋線※1・愛ある伊予灘線）
+  駅: [san_takamatsu, sakaide, utazu, marugame, tadotsu, takuma, kan-onji, kawanoe, iyo-mishima, niihama, iyo-saijo, nyugawa, imabari, iyo-hojo, matsuyama, uchiko, iyo-ozu, yawatahama, uwajima]
+- 名称: 予土線（しまんとグリーンライン）
+  駅: [kubokawa, uwajima]
+- 名称: 【愛称】瀬戸大橋線
+  注記: ※1：瀬戸大橋線は宇野線（岡山～茶屋町）、本四備讃線、予讃線（宇多津～高松）からなる路線愛称です。
+  駅:
+  - {他社駅: 04-West-Japan/okayama}
+  - {他社駅: 04-West-Japan/omoto}
+  - {他社駅: 04-West-Japan/senoo}
+  - {他社駅: 04-West-Japan/chayamachi}
+  - {他社駅: 04-West-Japan/kojima}
+  - utazu
+  - sakaide
+  - san_takamatsu

@@ -1,0 +1,200 @@
+会社名: JR西日本
+会社コード: 4
+ファイル名: 04-west-japan.html
+説明: ＪＲ西日本主要各駅のデータ
+絞り込み例: 大阪
+一覧クラス: station-name-04
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, みどりの窓口]
+- [amv_4-5, アシストマルス アイコン, みどりの券売機プラス（アシストマルス）]
+- [mv_4, みどりの券売機 アイコン, みどりの券売機]
+- [pos_2-4-6, ＰＯＳきっぷうりば アイコン, ＰＯＳきっぷうりば]
+- [em_4, 定期券がお求めになれる券売機 アイコン, 定期券がお求めになれる券売機]
+アイコン規則:
+- [1, to_1-2-4-5-6, [みどりの窓口]]
+- [2, amv_4-5, [みどりの券売機プラス*]]
+- [3, mv_4, [みどりの券売機]]
+- [4, pos_2-4-6, [ＰＯＳきっぷうりば]]
+- [5, em_4, [定期券*]]
+エリア:
+- ID: hokuriku
+  名称: 北陸エリア
+  路線:
+  - 名称: 越美北線（九頭竜線）
+    駅: [fukui, echizen-ono, kuzuryuko]
+  - 名称: 大糸線
+    駅:
+    - リンク: ../02-East-Japan/minami-otari.html
+      表示名: 南小谷
+      アイコン: [to_1-2-4-5-6, none, none, none, none, none]
+    - itoigawa
+  - 名称: 小浜線
+    駅: [tsuruga, mihama, mikata, kaminaka, higashi-obama, obama, wakasa-hongo, wakasa-wada, wakasa-takahama, higashi-maizuru]
+  - 名称: 城端線
+    駅:
+    - リンク: .html
+      表示名: 高岡
+      アイコン: [to_1-2-4-5-6, none, none, none, none, none]
+    - shin-takaoka
+    - toide
+    - tonami
+    - fukuno
+    - fukumitsu
+    - johana
+  - 名称: 高山本線
+    駅: [etchu-yatsuo, hayahoshi, toyama]
+  - 名称: 七尾線
+    駅:
+    - kanazawa
+    - リンク: .html
+      表示名: 津幡
+      アイコン: [to_1-2-4-5-6, none, none, none, none, none]
+    - unoke
+    - hakui
+    - nanao
+    - wakuraonsen
+  - 名称: 氷見線
+    駅:
+    - リンク: .html
+      表示名: 高岡
+      アイコン: [to_1-2-4-5-6, none, none, none, none, none]
+    - etchu-nakagawa
+    - fushiki
+    - himi
+  - 名称: 北陸新幹線
+    駅:
+    - リンク: ../02-East-Japan/joetsumyoko.html
+      表示名: 上越妙高
+      アイコン: [to_1-2-4-5-6, none, mv_2, none, none, none]
+    - itoigawa
+    - kurobe-unazukionsen
+    - toyama
+    - shin-takaoka
+    - kanazawa
+    - komatsu
+    - kagaonsen
+    - awaraonsen
+    - fukui
+    - echizen-takefu
+    - tsuruga
+- ID: wakayama
+  名称: 和歌山・福知山エリア
+  路線:
+  - 名称: 紀勢本線（きのくに線）
+    駅: [shingu, kii-katsuura, kushimoto, shirahama, kii-tanabe, minabe, gobo, yuasa, fujinami, minoshima, kainan, kuroe, kimiidera, wakayama]
+  - 名称: 山陰本線（福知山）
+    駅: [hiyoshi, wachi, ayabe, fukuchiyama, yanase, wadayama, yabu, yoka, ebara, toyooka, kinosakionsen, takeno, kasumi, hamasaka]
+  - 名称: 播但線
+    駅:
+    - リンク: .html
+      表示名: 姫路
+      アイコン: [to_1-2-4-5-6, amv_4-5, mv_4, none, em_4, none]
+    - nozato
+    - nibuno
+    - koro
+    - mizoguchi
+    - fukusaki
+    - amaji
+    - teramae
+    - ikuno
+    - nii
+    - takeda
+    - wadayama
+  - 名称: 福知山線（JR宝塚線※）
+    注記: ※JR宝塚線は東海道本線大阪～尼崎間および福知山線尼崎～篠山口間の路線愛称です。
+    駅: [fuku_hirono, aino, sasayamaguchi, tanikawa, fuku_kaibara, fuku_kuroi, fukuchiyama]
+  - 名称: 阪和線
+    駅: [nagataki, shinge, izumi-sunagawa, izumi-tottori, kii, musota, wakayama]
+  - 名称: 舞鶴線
+    駅: [ayabe, nishi-maizuru, higashi-maizuru]
+  - 名称: 和歌山線
+    駅: [wa_hashimoto, kokawa, iwade, wakayama]
+- ID: chugoku
+  名称: 中国エリア
+  路線:
+  - 名称: 赤穂線（中国）
+    駅: [hinase, imbe, oku, saidaiji, higashi-okayama, takashima, okayama]
+  - 名称: 因美線
+    駅: [tsuyama, mimasaka-kamo, chizu, koge, tottori]
+  - 名称: 宇野線（宇野みなと線・瀬戸大橋線※1）
+    駅: [okayama, omoto, senoo, chayamachi, uno]
+  - 名称: 宇部線
+    駅: [shin-yamaguchi, ajisu, ube-shinkawa, ube]
+  - 名称: 小野田線
+    駅: [ube-shinkawa, onoda]
+  - 名称: 可部線
+    駅: [hiroshima, shin-hakushima, yo_yokogawa, aki-nagatsuka, shimo-gion, furuichibashi, ka_omachi, midorii, kabe]
+  - 名称: 岩徳線
+    駅: [iwakuni, kuga, suo-takamori, kushigahama, tokuyama]
+  - 名称: 姫新線（中国）
+    駅: [hayashino, tsuyama, kuse, chugoku-katsuyama, niimi]
+  - 名称: 木次線
+    駅: [shinji, kamonaka, izumo-daito, kisuki, izumo-minari, izumo-yokota]
+  - 名称: 吉備線（桃太郎線）
+    駅: [okayama, soja]
+  - 名称: 呉線
+    駅: [mihara, takehara, akitsu, yasuura, aki-kawajiri, hiro, aki-aga, kure, yoshiura, saka, yano, kaitaichi, mukainada, tenjingawa, hiroshima]
+  - 名称: 芸備線
+    駅: [hiroshima, aki-yaguchi, shimo-fukawa, mukaihara, kotachi, miyoshi, bingo-shobara, niimi]
+  - 名称: 境線
+    駅: [yonago, sakaiminato]
+  - 名称: 山陰本線（中国）
+    駅: [iwami, tottori, koyama, tottoridaigakumae, aoya, kurayoshi, yura, akasaki, houki-daisen, yonago, yasugi, matsue, nogi, tamatsukurionsen, shinji, izumoshi, odashi, nima, gotsu, hamada, masuda, esaki,
+      susa, nago, higashi-hagi, nagatoshi, takibe, ayaragi, hatabu, shimonoseki]
+  - 名称: 山陽新幹線（中国）
+    駅: [okayama, shin-kurashiki, fukuyama, shin-onomichi, mihara, higashi-hiroshima, hiroshima, shin-iwakuni, tokuyama, shin-yamaguchi, asa, shin-shimonoseki, kokura, hakata]
+  - 名称: 山陽本線（中国）
+    駅: [seto, higashi-okayama, takashima, okayama, kita-nagase, niwase, nakasho, kurashiki, nishi-achi, shin-kurashiki, konko, kamogata, kasaoka, daimon, higashi-fukuyama, fukuyama, matsunaga, higashi-onomichi,
+      onomichi, mihara, hongo, shiraichi, nishi-takaya, yo_saijo, hachihommatsu, seno, aki-nakano, kaitaichi, mukainada, tenjingawa, hiroshima, shin-hakushima, yo_yokogawa, nishi-hiroshima, shin-inokuchi,
+      itsukaichi, hatsukaichi, miyauchi-kushido, ajina, miyajimaguchi, maezora, otake, waki, iwakuni, minami-iwakuni, obatake, yanai, tabuse, hikari, yo_kudamatsu, kushigahama, tokuyama, shin-nanyo, hofu,
+      daido, shin-yamaguchi, ube, onoda, asa, ozuki, chohu, shin-shimonoseki, hatabu, shimonoseki]
+  - 名称: 津山線
+    駅: [okayama, kamenoko, tsuyama]
+  - 名称: 博多南線
+    駅: [hakata, hakataminami]
+  - 名称: 伯備線
+    駅: [okayama, kita-nagase, niwase, nakasho, kurashiki, kiyone, soja, bitchu-takahashi, niimi, shoyama, neu, houki-daisen, yonago]
+  - 名称: 福塩線
+    駅: [fukuyama, kannabe, en_fuchu, miyoshi]
+  - 名称: 本四備讃線（瀬戸大橋線※1）
+    駅: [chayamachi, kojima]
+  - 名称: 美祢線
+    駅: [asa, mine, nagatoshi]
+  - 名称: 山口線
+    駅: [shin-yamaguchi, yudaonsen, yamaguchi, tokusa, tsuwano, nichihara, masuda]
+  - 名称: 【愛称】瀬戸大橋線
+    注記: ※1：瀬戸大橋線は宇野線（岡山～茶屋町）、本四備讃線、予讃線（宇多津～高松）からなる路線愛称です。
+    駅:
+    - okayama
+    - omoto
+    - senoo
+    - chayamachi
+    - kojima
+    - {他社駅: 05-Shikoku/utazu}
+    - {他社駅: 05-Shikoku/sakaide}
+    - {他社駅: 05-Shikoku/san_takamatsu}
+付記HTML: |-
+  <div class="station-container">
+  <h3>JR西日本管内の業務委託駅に関して</h3>
+  <h4>委託先企業</h4>
+  <h5>北陸エリア</h5>
+  <ul>
+  <li>株式会社JR西日本金沢メンテック（金沢メンテック）</li>
+  </ul>
+  <h5>近畿エリア</h5>
+  <ul>
+  <li>株式会社JR西日本交通サービス（JK）</li>
+  </ul>
+  <h5>中国エリア</h5>
+  <ul>
+  <li>株式会社JR西日本中国交通サービス（CJK）</li>
+  </ul>
+  <h3>駅業務他社委託駅（他社委託駅）について</h3>
+  <p>※一部委託駅は除きます。</p>
+  <h5>北陸エリア</h5>
+  <ul>
+  <li><a href="../99-Others/32-Ainokaze-Toyama/takaoka.html">高岡（あいの風とやま鉄道）</a></li>
+  <li><a href="../99-Others/31-IR-Ishikawa/tsubata.html">津幡（IRいしかわ鉄道）</a></li>
+  <li>越前花堂（ハピラインふくい）</li>
+  </ul>
+  </div>

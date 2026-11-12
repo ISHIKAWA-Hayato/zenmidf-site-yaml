@@ -1,0 +1,27 @@
+会社名: WILLER TRAINS（京都丹後鉄道）
+入口表示名: WILLER TRAINS
+会社コード: 22
+ファイル名: 22-willer-trains.html
+説明: WILLER TRAINS主要各駅のデータ
+絞り込み例: 天橋立
+一覧クラス: station-name-otr
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, きっぷうりば（みどりの窓口）]
+アイコン規則:
+- [1, to_1-2-4-5-6, [きっぷうりば*], [], [MR*, ビジネスえきねっと]]
+- [4, pos_2-4-6, [きっぷうりば*], [], [感熱POS]]
+- [5, em_4, [定期券*]]
+路線:
+- 名称: 宮豊線
+  駅:
+  - miyazu
+  - amanohashidate
+  - {他社駅: 04-West-Japan/toyooka}
+- 名称: 宮福線
+  駅:
+  - {他社駅: 04-West-Japan/fukuchiyama}
+  - miyazu
+- 名称: 宮舞線
+  駅:
+  - {他社駅: 04-West-Japan/nishi-maizuru}
+  - miyazu

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M4EWZ424QB"></script>
+<script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-M4EWZ424QB");
+        </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>データファイル検索 | 全国マルス情報データファイル</title>
+<meta content="データファイル内をウェブから登録不要で検索できます" name="description"/>
+<link href="/images/fav.png" rel="icon" type="image/png"/>
+<link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<button class="hamburger" id="hamburger">
+<span> </span>
+<span> </span>
+<span> </span>
+</button>
+<nav class="sidenav" id="sidenav">
+<h2>メニュー</h2>
+<!-- メニュー -->
+</nav>
+<div class="overlay" id="overlay"></div>
+<header>
+<h1>
+<a href="https://www.zenmidf.jp"> 全国マルス情報データファイル </a>
+</h1>
+</header>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li>
+<a href="https://www.zenmidf.jp"> ホーム </a>
+</li>
+<li aria-current="page">データファイル検索</li>
+</ol>
+</nav>
+<main>
+<div class="container">
+<div class="search-container">
+<h3 class="search-form-title">１. 路線名で検索</h3>
+<p class="search-form-warning">注意：「線」を付加しないでください</p>
+<form action="searchresult-linename.html" id="linenameSearchForm" method="GET">
+<input id="returnUrlFieldLinename" name="return_url" type="hidden"/>
+<input aria-label="路線名で検索" name="q" placeholder="例：東海道" required="" type="text"/>
+<input type="submit" value="検索"/>
+</form>
+</div>
+<div class="search-reference">
+<a href="download-linename.html" target="_blank"> 参考：路線名の表記について（PDF） </a>
+</div>
+<div class="search-container">
+<h3 class="search-form-title">２. 駅名で検索</h3>
+<p class="search-form-warning">注意：「駅」を付加しないでください</p>
+<form action="searchresult-station.html" id="googleSheetSearchForm" method="GET">
+<input id="returnUrlField" name="return_url" type="hidden"/>
+<input aria-label="駅名で検索" name="q" placeholder="例：東京" required="" type="text"/>
+<input type="submit" value="検索"/>
+</form>
+</div>
+</div>
+</main>
+<footer>
+<p>
+<a class="footer-link" href="https://www.zenmidf.jp"> サイトホームに戻る </a>
+</p>
+<p class="copyright">
+                ©
+                <span class="current-year"> </span>
+                全国マルス情報データファイル. All Rights Reserved.
+            </p>
+</footer>
+<script src="js/common.js"></script>
+</body>
+</html>

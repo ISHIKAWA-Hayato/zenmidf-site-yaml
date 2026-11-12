@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% set title = portal.名称 %}
+{% set description = portal.説明 %}
+{% set crumbs = group %}
+{% set current = portal.名称 %}
+{% block main %}
+<div class="container">
+<h2>{{ portal.名称 }}</h2>
+{% for href, name in companies %}
+<h3><a href="{{ href }}">{{ name }}</a></h3>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+# サイト共通設定：ここを直すと全ページに反映される
+サイト名: 全国マルス情報データファイル
+トップ: https://www.zenmidf.jp
+GA: G-M4EWZ424QB
+ファビコン: /images/fav.png
+メニュー:
+  - [ホーム, https://www.zenmidf.jp]
+  - [駅別ページ, https://www.zenmidf.jp/station-individual.html]
+  - [About US, https://www.zenmidf.jp/aboutus.html]
+  - [サポート, https://www.zenmidf.jp/support.html]
+  - [DF検索, https://www.zenmidf.jp/datafail.html]
+  - [リンク集, https://www.zenmidf.jp/link.html]

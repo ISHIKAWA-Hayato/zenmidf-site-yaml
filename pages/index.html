@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>全国マルス情報データファイル</title>
+        <meta
+            content="全国の「みどりの窓口」や「指定席券売機」の営業時間情報をすぐに検索できるツールです。（非公式）"
+            name="description" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+            rel="stylesheet" />
+        <link href="/images/fav.png" rel="icon" type="image/png" />
+        <link href="css/index.css" rel="stylesheet" />
+    </head>
+    <body class="top-page">
+        <header class="main-header">
+            <div class="header-brand"></div>
+
+            <button
+                id="hamburger"
+                class="hamburger-button"
+                aria-label="メニューを開く"
+                aria-controls="sidenav"
+                aria-expanded="false">
+                <span class="hamburger-icon"></span>
+            </button>
+
+            <nav id="sidenav" class="main-nav" aria-label="メインナビゲーション">
+                <!-- メニュー（ホーム以外） -->
+            </nav>
+        </header>
+
+        <div id="overlay"></div>
+
+        <main class="content-wrapper">
+            <div class="container">
+                <h1>全国マルス情報データファイル</h1>
+                <div class="notice-container" role="alert">
+                    <span class="notice-icon" aria-hidden="true">⚠️</span>
+                    <p>
+                        <strong>【お知らせ】</strong>
+                        <br />
+                        JR西日本和歌山・福知山エリア
+                        <br />
+                        ハピラインふくい・北越急行
+                        <br />
+                        を公開しました。
+                    </p>
+                </div>
+                <div id="mailmag-popup" class="slide-popup" aria-hidden="true">
+                    <button id="popup-close" class="popup-close" aria-label="閉じる">&times;</button>
+                    <div class="popup-content">
+                        <p class="popup-title">✉️ メールマガジン（無料）</p>
+                        <p class="popup-text">サイトの更新情報やきっぷのホットな話題をお届けします。</p>
+                        <a href="mail-magazine.html" class="popup-link">詳細・ご登録はこちら</a>
+                    </div>
+                </div>
+                <h2>事業者を選択</h2>
+                <p>調べたい事業者のボタンを選択してください。</p>
+                <div class="company-buttons">
+                    <a class="company-button jr-hokkaido" href="station-individual/01-Hokkaido/01-hokkaido.html">
+                        ＪＲ北海道
+                    </a>
+                    <a href="station-individual/02-East-Japan/02-east-japan.html" class="company-button jr-east"
+                        >ＪＲ東日本</a
+                    >
+                    <a href="station-individual/03-Central-Japan/03-central-japan.html" class="company-button jr-tokai"
+                        >ＪＲ東海（中京先行公開）</a
+                    >
+                    <a href="station-individual/04-West-Japan/04-west-japan.html" class="company-button jr-west"
+                        >ＪＲ西日本（一部先行公開）</a
+                    >
+                    <a href="station-individual/05-Shikoku/05-shikoku.html" class="company-button jr-shikoku"
+                        >ＪＲ四国</a
+                    >
+                    <a href="station-individual/06-Kyushu/06-kyushu.html" class="company-button jr-kyushu">ＪＲ九州</a>
+                    <a href="station-individual/99-Others/99-Others.html" class="company-button private-other"
+                        >私鉄・三セク（9社先行公開）</a
+                    >
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <nav aria-label="フッターナビゲーション">
+                <ul>
+                    <li>
+                        <a
+                            href="https://docs.google.com/spreadsheets/d/10ilEADQNG-B8yo4Nk4glV9ZywZp8akSDwYtIoaZMHUw/edit?gid=0#gid=0"
+                            rel="noopener noreferrer"
+                            target="_blank">
+                            スプレッドシートで閲覧
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <p>&copy; <span class="current-year">2025</span> 全国マルス情報データファイル. All Rights Reserved.</p>
+        </footer>
+
+        <script src="js/common.js"></script>
+    </body>
+</html>

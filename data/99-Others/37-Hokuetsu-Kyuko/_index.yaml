@@ -1,0 +1,25 @@
+会社名: 北越急行
+会社コード: 37
+ファイル名: 37-hokuetsu-kyuko.html
+説明: 北越急行主要各駅のデータ
+絞り込み例: 十日町
+一覧クラス: station-name-otr
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, JR券取扱あり]
+アイコン規則:
+- [1, to_1-2-4-5-6, [きっぷうりば*], [], [MR*, ビジネスえきねっと]]
+- [4, pos_2-4-6, [きっぷうりば*], [], [感熱POS]]
+- [5, em_4, [定期券*]]
+路線:
+- 名称: ほくほく線
+  駅:
+  - リンク: ../../02-East-Japan/echigo-yuzawa.html
+    表示名: 越後湯沢
+    アイコン: [none, amv_2, mv_2, none, none, none]
+  - リンク: ../../02-East-Japan/muikamachi.html
+    表示名: 六日町
+    アイコン: [to_1-2-4-5-6, none, none, none, none, none]
+  - tokamachi
+  - リンク: ../../02-East-Japan/naoetsu.html
+    表示名: 直江津
+    アイコン: [to_1-2-4-5-6, none, mv_2, none, none, none]

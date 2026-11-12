@@ -1,0 +1,28 @@
+会社名: 伊豆急行
+会社コード: 21
+ファイル名: 21-izukyu.html
+説明: 伊豆急行主要各駅のデータ
+絞り込み例: 伊豆高原
+一覧クラス: station-name-otr
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, JR券取扱あり]
+- [pos_2-4-6, きっぷうりば アイコン, きっぷうりば]
+アイコン規則:
+- [1, to_1-2-4-5-6, [きっぷうりば*], [], [MR*, ビジネスえきねっと]]
+- [4, pos_2-4-6, [きっぷうりば*], [], [感熱POS]]
+- [5, em_4, [定期券*]]
+路線:
+- 名称: 伊豆急行線
+  駅:
+  - リンク: ../../02-East-Japan/ito.html
+    表示名: 伊東
+    アイコン: [to_1-2-4-5-6, none, mv_2, none, none, none]
+  - minami-ito
+  - kawana
+  - jogasaki-kaigan
+  - izu-kogen
+  - izu-okawa
+  - izu-atagawa
+  - izu-inatori
+  - kawazu
+  - izukyu-shimoda

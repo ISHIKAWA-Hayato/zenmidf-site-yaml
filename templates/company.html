@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% set title = company.会社名 %}
+{% set description = company.説明 %}
+{% set crumbs = group %}
+{% set current = company.会社名 %}
+{% macro line_block(line) %}
+<details class="train-line-section">
+<summary><h3>{{ line.名称 }}</h3></summary>
+{% if line.注記 %}
+<p>
+{{ line.注記 }}
+</p>
+{% endif %}
+<ul class="{{ company.一覧クラス }}">
+{% for s in line.stations %}
+<li>
+<a href="{{ s.href }}">
+<span> {{ s.name }} </span>
+</a>
+<div class="station-icons-container">
+{% for ic in s.icons %}
+<img alt="アイコン{{ loop.index }}" class="station-icon" src="{{ si }}svg/{{ ic }}.svg" />
+{% endfor %}
+</div>
+</li>
+{% endfor %}
+</ul>
+</details>
+{% endmacro %}
+{% block main %}
+<div class="station-container">
+<h2>{{ company.会社名 }}</h2>
+<div class="station-filter">
+<label for="station-search">駅名で絞り込み（漢字のみ）:</label>
+<input type="text" id="station-search" placeholder="例：{{ company.絞り込み例 }}" />
+</div>
+<details class="legend-box">
+<summary class="legend-title">凡例</summary>
+<table class="legend-table">
+<thead>
+<tr><th>アイコン</th><th>設備名</th></tr>
+</thead>
+<tbody>
+{% for icon, alt, name in company.凡例 %}
+<tr>
+<td><img src="{{ si }}svg/{{ icon }}.svg" alt="{{ alt }}" class="station-icon" /></td>
+<td><strong>{{ name }}</strong></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</details>
+{% if areas %}
+<h4>エリアを選択</h4>
+<p>
+{% for a in areas %}
+<a href="#{{ a.ID }}">{{ a.名称 }}▼</a>
+{% if not loop.last %}<br />
+{% endif %}
+{% endfor %}
+</p>
+{% for a in areas %}
+<h2 id="{{ a.ID }}">{{ a.名称 }}</h2>
+{% for line in a.lines %}{{ line_block(line) }}{% endfor %}
+{% endfor %}
+{% else %}
+{% for line in lines %}{{ line_block(line) }}{% endfor %}
+{% endif %}
+</div>
+{% if company.付記HTML %}
+{{ company.付記HTML }}
+{% endif %}
+{% endblock %}

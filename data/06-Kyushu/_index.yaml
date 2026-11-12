@@ -1,0 +1,196 @@
+会社名: JR九州
+会社コード: 6
+ファイル名: 06-kyushu.html
+説明: ＪＲ九州主要各駅のデータ
+絞り込み例: 博多
+一覧クラス: station-name-06
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, みどりの窓口]
+- [amv_6, アシストマルス アイコン, 「ど～ぞ」（アシストマルス）]
+- [mv_6, 指定席券売機 アイコン, 指定席券売機]
+- [pos_2-4-6, POS端末 アイコン, POSきっぷうりば]
+- [em_6, 定期券を購入できる券売機 アイコン, 定期券を購入できる券売機]
+アイコン規則:
+- [1, to_1-2-4-5-6, [みどりの窓口]]
+- [2, amv_6, [みどりの券売機プラス*]]
+- [3, mv_6, [指定席券売機]]
+- [4, pos_2-4-6, [ＰＯＳきっぷうりば], [みどりの窓口]]
+- [5, em_6, [定期券*]]
+路線:
+- 名称: 指宿枕崎線
+  駅: [kagoshima-chuo, taniyama, jigenji, sakanoue, ibusuki]
+- 名称: 大村線
+  駅: [haiki, huis-ten-bosch, kawatana, takematsu, shin-omura, omura, isahaya]
+- 名称: 鹿児島本線
+  駅:
+  - mojiko
+  - moji
+  - kokura
+  - nishi-kokura
+  - tobata
+  - {駅: space-world, 表示名: ｽﾍﾟｰｽﾜｰﾙﾄﾞ}
+  - yahata
+  - kurosaki
+  - orio
+  - ongagawa
+  - ebitsu
+  - kyoikudai-mae
+  - akama
+  - togo
+  - higashi-fukuma
+  - fukuma
+  - chidori
+  - koga
+  - shishibu
+  - shingu-chuo
+  - fukkodai-mae
+  - kyusandai-mae
+  - kashii
+  - chihaya
+  - hakozaki
+  - yoshizuka
+  - hakata
+  - takeshita
+  - sasabaru
+  - minami-fukuoka
+  - kasuga
+  - onojo
+  - mizuki
+  - tofuro-minami
+  - futsukaichi
+  - tempaizan
+  - haruda
+  - kiyama
+  - tosu
+  - kurume
+  - hainuzuka
+  - chikugo-funagoya
+  - setaka
+  - omuta
+  - ka_arao
+  - tamana
+  - kami-kumamoto
+  - kumamoto
+  - uto
+  - shin-yatsushiro
+  - yatsushiro
+  - ka_sendai
+  - ijuin
+  - kagoshima-chuo
+  - kagoshima
+- 名称: 香椎線（海の中道線）
+  駅: [kashii, chojabaru]
+- 名称: 唐津線
+  駅: [saga, karatsu]
+- 名称: 吉都線（えびの高原線）
+  駅: [kichi_kobayashi, miyakonojo]
+- 名称: 九州新幹線
+  駅: [hakata, shin-tosu, kurume, chikugo-funagoya, shin-omuta, shin-tamana, kumamoto, shin-yatsushiro, shin-minamata, izumi, ka_sendai, kagoshima-chuo]
+- 名称: 久大本線（ゆふ高原線）
+  駅:
+  - kurume
+  - tanushimaru
+  - chikugo-yoshii
+  - hita
+  - bungo-mori
+  - bungo-nakamura
+  - yufuin
+  - onoya
+  - mukainoharu
+  - minami-oita
+  - oita
+- 名称: 後藤寺線
+  駅: [shin-iizuka, tagawagotoji]
+- 名称: 篠栗線（福北ゆたか線※1）
+  駅: [chikuho_keisen, chikuzen-daibu, kurobaru, kido-nanzoin-mae, chikuzen-yamate, sasaguri, kadomatsu, chojabaru, harumachi, yusu, yoshizuka]
+- 名称: 佐世保線
+  駅: [kohoku, takeo-onsen, arita, haiki, sasebo]
+- 名称: 山陽本線
+  駅:
+  - {他社駅: 04-West-Japan/shimonoseki}
+  - moji
+  - kokura
+- 名称: 筑肥線
+  駅: [shimoyamato, imajuku, kyudai-gakkentoshi, susenji, hatae, itoshimakoko-mae, chikuzen-maebaru, misakigaoka, kafuri, chikuzen-fukae, karatsu, imari]
+- 名称: 筑豊本線（福北ゆたか線※1・若松線・原田線）
+  駅: [wakamatsu, orio, nakama, chikuzen-habu, kurate, chikuzen-ueki, shinnyu, nogata, katsuno, kotake, namazuta, urata, shin-iizuka, iizuka, tento, chikuho_keisen, haruda]
+- 名称: 長崎本線
+  駅: [tosu, shin-tosu, kanzaki, saga, {駅: balloon-saga, 表示名: 臨）バルーンさが}, kohoku, hizen-kashima, isahaya, urakami, nagasaki]
+- 名称: 西九州新幹線
+  駅: [takeo-onsen, ureshino-onsen, shin-omura, isahaya, nagasaki]
+- 名称: 日南線
+  駅: [miyazaki, minami-miyazaki, obi, nichinan]
+- 名称: 日豊本線
+  駅:
+  - kokura
+  - nishi-kokura
+  - minami-kokura
+  - jono
+  - abeyamakoen
+  - shimo-sone
+  - kusami
+  - kanda
+  - yukuhashi
+  - minami-yukuhashi
+  - shindembaru
+  - unoshima
+  - nakatsu
+  - higashi-nakatsu
+  - imazu
+  - yanagigaura
+  - usa
+  - nishiyashiki
+  - tateishi
+  - naka-yamaga
+  - kitsuki
+  - oga
+  - hiji
+  - yokoku
+  - bungo-toyooka
+  - kamegawa
+  - beppudaigaku
+  - beppu
+  - higashi-beppu
+  - nishi-oita
+  - oita
+  - maki
+  - takajo
+  - tsurusaki
+  - ozai
+  - sakanoichi
+  - usuki
+  - tsukumi
+  - saiki
+  - nobeoka
+  - minami-nobeoka
+  - hyugashi
+  - tsuno
+  - takanabe
+  - sadowara
+  - miyazaki
+  - minami-miyazaki
+  - kiyotake
+  - miyakonojo
+  - nishi-miyakonojo
+  - {駅: po_kokubu, 表示名: （豊）国分}
+  - hayato
+  - kajiki
+  - shigetomi
+  - kagoshima
+  - kagoshima-chuo
+- 名称: 肥薩線
+  駅: [yatsushiro, hitoyoshi, hayato]
+- 名称: 日田彦山線
+  駅: [kokura, nishi-kokura, minami-kokura, jono, tagawa-ita, tagawagotoji, buzen-kawasaki]
+- 名称: 日田彦山線ＢＲＴ（ＢＲＴひこぼしライン）
+  駅: [hita]
+- 名称: 豊肥本線
+  駅: [oita, miemachi, bungo-taketa, miyaji, aso, higo-otsu, sanrigi, hikarinomori, musashizuka, tatsutaguchi, tokaigakuenmae, suizenji, shin-suizenji, minami-kumamoto, heisei, kumamoto]
+- 名称: 三角線
+  駅: [kumamoto, uto, misumi]
+- 名称: 宮崎空港線
+  駅: [miyazaki, minami-miyazaki, miyazaki-airport]
+- 名称: 【愛称】福北ゆたか線
+  注記: ※1：福北ゆたか線は筑豊本線（折尾～桂川）、篠栗線からなる路線愛称です。
+  駅: [orio, nakama, chikuzen-habu, kurate, chikuzen-ueki, shinnyu, nogata, katsuno, kotake, namazuta, urata, shin-iizuka, iizuka, tento, chikuho_keisen, chikuzen-daibu, kurobaru, kido-nanzoin-mae, chikuzen-yamate,
+    sasaguri, kadomatsu, chojabaru, harumachi, yusu, yoshizuka, hakata]

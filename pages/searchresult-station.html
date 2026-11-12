@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M4EWZ424QB"></script>
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-M4EWZ424QB");
+    </script>
+<meta charset="utf-8"/>
+<base target="_top"/>
+<title>検索システム（駅） | 全国マルス情報データファイル</title>
+<link href="/images/fav.png" rel="icon" type="image/png"/>
+<link href="css/style.css" rel="stylesheet"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+</head>
+<body class="search-result">
+<button class="hamburger" id="hamburger">
+<span> </span>
+<span> </span>
+<span> </span>
+</button>
+<nav class="sidenav" id="sidenav">
+<h2>メニュー</h2>
+<!-- メニュー -->
+</nav>
+<div class="overlay" id="overlay"></div>
+<header>
+<h1>
+<a href="index.html"> 全国マルス情報データファイル </a>
+</h1>
+</header>
+<div class="background-layer"></div>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li>
+<a href="https://www.zenmidf.jp"> ホーム </a>
+</li>
+<li>
+<a href="datafail.html"> データファイル検索 </a>
+</li>
+<li aria-current="page">検索システム（駅名）</li>
+</ol>
+</nav>
+<div class="content-wrapper">
+<div class="container">
+<h1 class="page-title">検索システム（駅名）</h1>
+<p style="color: red; font-size: inherit; text-align: center; margin-top: -1rem; margin-bottom: 1.5rem">
+<strong>
+            Google Apps Scriptを経由して出力しているため、 表示まで少し時間がかかります。予めご了承ください。
+          </strong>
+</p>
+<h2 class="search-query-title" id="searchQueryDisplay"></h2>
+<p class="message-display" id="messageArea" style="display: none"></p>
+<div id="searchResultsArea"></div>
+<div class="search-again-container">
+<p>
+<a class="search-again-button" href="datafail.html"> 元のページに戻って再検索 </a>
+</p>
+</div>
+</div>
+<footer>
+<p>
+<a class="footer-link" href="https://www.zenmidf.jp/"> トップページに戻る </a>
+</p>
+<p class="copyright">
+          ©
+          <span class="current-year"> 2025 </span>
+          全国マルス情報データファイル. All Rights Reserved.
+        </p>
+</footer>
+</div>
+<script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ▼▼▼ ハンバーガーメニュー用のJavaScriptをここから追加 ▼▼▼
+        const hamburger = document.getElementById("hamburger");
+        const sidenav = document.getElementById("sidenav");
+        const overlay = document.getElementById("overlay");
+
+        if (hamburger && sidenav && overlay) {
+          hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("is-active");
+            sidenav.classList.toggle("is-active");
+            overlay.classList.toggle("is-active");
+          });
+
+          overlay.addEventListener("click", () => {
+            hamburger.classList.remove("is-active");
+            sidenav.classList.remove("is-active");
+            overlay.classList.remove("is-active");
+          });
+        }
+        // ▲▲▲ ハンバーガーメニュー用のJavaScriptをここまで追加 ▲▲▲
+
+        // 1. 定数・DOM要素取得 (既存のコード)
+        const yearSpan = document.querySelector("span.current-year");
+        const searchQueryDisplay = document.getElementById("searchQueryDisplay");
+        const messageArea = document.getElementById("messageArea");
+        const searchResultsArea = document.getElementById("searchResultsArea");
+        const gasWebAppUrl =
+          "https://script.google.com/macros/s/AKfycbzmDAqgtrRJA2VS8UcrOZ7w3jhI1XcURF0vWoyuTVsrl61Zn6LJykMlvD2-HhwrOQ1i/exec";
+
+        // ▼▼▼ ローディングインジケータ要素を作成 (既存のコード) ▼▼▼
+        const loadingIndicator = document.createElement("div");
+        loadingIndicator.id = "loadingIndicator";
+        loadingIndicator.className = "loading-indicator";
+        loadingIndicator.innerHTML =
+          '<div class="spinner"></div><p>データを取得しています。しばらくお待ちください...</p>';
+        // searchQueryDisplay の後に挿入
+        if (searchQueryDisplay && searchQueryDisplay.parentNode) {
+          searchQueryDisplay.parentNode.insertBefore(loadingIndicator, searchQueryDisplay.nextSibling);
+        }
+        loadingIndicator.style.display = "none"; // 初期状態では非表示
+        // ▲▲▲ ローディングインジケータ要素を作成 (既存のコード) ▲▲▲
+
+        // 2. ヘルパー関数 (既存のコード)
+        function showMessage(text, type) {
+          if (messageArea) {
+            messageArea.textContent = text;
+            messageArea.className = `message-display ${type}`;
+            messageArea.style.display = "block";
+          }
+          if (searchResultsArea) searchResultsArea.innerHTML = "";
+        }
+
+        // 3. 初期処理 (フッターの年更新) (既存のコード)
+        if (yearSpan) {
+          yearSpan.textContent = new Date().getFullYear();
+        }
+
+        // 4. URLパラメータ取得とメインロジック (既存のコード)
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryFromUrl = urlParams.get("q");
+
+        if (!searchQueryDisplay || !messageArea || !searchResultsArea) {
+          console.error(
+            "必要なHTML要素（searchQueryDisplay, messageArea, または searchResultsArea）が見つかりません。"
+          );
+          if (messageArea) {
+            showMessage("ページの初期化に失敗しました。必要な要素が見つかりません。", "no-results");
+          }
+          return;
+        }
+
+        if (queryFromUrl && queryFromUrl.trim() !== "") {
+          searchQueryDisplay.textContent = `「${queryFromUrl}」の検索結果`;
+          messageArea.style.display = "none"; // 既存メッセージを隠す
+          searchResultsArea.innerHTML = ""; // 既存結果をクリア
+          if (loadingIndicator) loadingIndicator.style.display = "block"; // ★ ローディング表示開始
+
+          fetch(`${gasWebAppUrl}?q=${encodeURIComponent(queryFromUrl.trim())}`)
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(
+                    `Network response was not ok: ${response.status} ${response.statusText}. Server said: ${text}`
+                  );
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("GASからのデータ:", data);
+              // データ処理前に、メッセージエリアと結果エリアを再度クリア（念のため）
+              messageArea.style.display = "none";
+              searchResultsArea.innerHTML = "";
+
+              if (data.error) {
+                showMessage(data.error, "no-results");
+                return;
+              }
+
+              if (!data.searchResultsFound || Object.keys(data.resultsBySheet || {}).length === 0) {
+                showMessage(data.message || "該当するデータは見つかりませんでした。", "no-results");
+                return;
+              }
+
+              searchResultsArea.innerHTML = ""; // 結果表示エリアをクリア
+              let hasDisplayedAnyTable = false;
+
+              for (const sheetName in data.resultsBySheet) {
+                const sheetData = data.resultsBySheet[sheetName];
+                if (sheetData && sheetData.rows && sheetData.rows.length > 0) {
+                  hasDisplayedAnyTable = true;
+                  const sheetTitle = document.createElement("h3");
+                  sheetTitle.className = "sheet-title";
+                  sheetTitle.textContent = `シート: ${sheetName} (${sheetData.rows.length}件)`;
+                  searchResultsArea.appendChild(sheetTitle);
+
+                  const tableContainer = document.createElement("div");
+                  tableContainer.className = "table-container";
+                  const table = document.createElement("table");
+                  table.className = "results-table";
+
+                  if (sheetData.headers && sheetData.headers.length > 0) {
+                    const thead = table.createTHead();
+                    const headerRow = thead.insertRow();
+                    sheetData.headers.forEach((headerText) => {
+                      const th = document.createElement("th");
+                      th.textContent = headerText;
+                      headerRow.appendChild(th);
+                    });
+                  }
+
+                  const tbody = table.createTBody();
+                  sheetData.rows.forEach((rowDataArray) => {
+                    const tr = tbody.insertRow();
+                    if (Array.isArray(rowDataArray)) {
+                      rowDataArray.forEach((cellData) => {
+                        const td = tr.insertCell();
+                        td.textContent = cellData !== null && cellData !== undefined ? cellData : "";
+                      });
+                    }
+                  });
+                  tableContainer.appendChild(table);
+                  searchResultsArea.appendChild(tableContainer);
+                }
+              }
+              if (!hasDisplayedAnyTable) {
+                showMessage("該当するデータは見つかりませんでした。", "no-results");
+              }
+            })
+            .catch((error) => {
+              console.error("Fetchエラー:", error);
+              messageArea.style.display = "none"; // エラー時も既存メッセージを隠す
+              searchResultsArea.innerHTML = ""; // エラー時も既存結果をクリア
+              showMessage(`検索結果の取得中にエラーが発生しました。(${error.message})`, "no-results");
+            })
+            .finally(() => {
+              // ★ fetchの成功・失敗に関わらず実行
+              if (loadingIndicator) loadingIndicator.style.display = "none"; // ★ ローディング非表示
+            });
+        } else {
+          searchQueryDisplay.textContent = "検索キーワードが入力されていません。";
+          showMessage("検索キーワードを入力して、再度お試しください。", "empty-query");
+          if (loadingIndicator) loadingIndicator.style.display = "none"; // キーワードがない場合も非表示
+        }
+      });
+    </script>
+</body>
+</html>

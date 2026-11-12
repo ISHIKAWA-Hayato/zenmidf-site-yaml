@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% set title = st.駅名 ~ "駅" %}
+{% set description = company.会社名 ~ " | " ~ st.駅名 ~ "駅の情報" %}
+{% set crumbs = group + [(company.会社名, company.ファイル名)] %}
+{% set current = st.駅名 ~ "駅" %}
+{% macro hour(v) %}{% if v == "不明" %}<span class="unknown-text"> 不明 </span>{% else %}<span class="business-hour-text"> {{ v | replace("\n", "<br />\n") }} </span>{% endif %}{% endmacro %}
+{% macro line(it) -%}
+{%- if "営業時間" in it -%}営業時間
+{{ hour(it.営業時間) }}
+{%- elif "区分" in it -%}{{ it.区分 }}
+{{ hour(it.時間) }}{% if it.補足 %} <span class="unknown-text">{{ it.補足 }}</span>{% endif %}
+{%- elif "時間" in it -%}{{ hour(it.時間) }}{% if it.補足 %} <span class="unknown-text">{{ it.補足 }}</span>{% endif %}
+{%- elif "社員不在" in it -%}以下の時間帯は係員が不在となります。
+<br />
+{{ hour(it.社員不在) }}
+{%- elif "休止" in it -%}以下の時間帯は休止となります。
+<br />
+{{ hour(it.休止) }}
+{%- elif "オペレーター対応時間" in it -%}<span class="amv-operation-hour-text"> オペレーター対応時間 {{ it.オペレーター対応時間 }} </span>
+{%- elif "注記" in it -%}<span class="unknown-text"> {{ it.注記 | replace("\n", "<br />\n") }} </span>
+{%- elif "文" in it -%}{{ it.文 }}
+{%- elif "他社ページ" in it -%}{{ it.他社ページ }}は<a href="{{ it.リンク }}">こちら</a>
+{%- elif "HTML" in it -%}{{ it.HTML }}
+{%- elif "空行" in it -%}
+{%- endif -%}
+{%- endmacro %}
+{% macro para(lines) %}
+<p>
+{% for it in lines %}
+{{ line(it) }}
+{% if not loop.last %}<br />
+{% endif %}
+{% endfor %}
+</p>
+{% endmacro %}
+{% macro cell(col, v) -%}
+{%- if v is mapping and "薄字" in v -%}<span class="unknown-text">{{ v.薄字 }}</span>
+{%- elif col == "摘要" and v in ("設置", "撤去") -%}<img alt="{{ v }}" class="mars-info" src="{{ root }}svg/{{ 'mars-install' if v == '設置' else 'mars-remove' }}.svg" />
+{%- else -%}{{ v }}
+{%- endif -%}
+{%- endmacro %}
+{% macro table(t) %}
+{% set prio = t.優先列 or (t.端末 | selectattr("優先", "defined") | list) %}
+{% set cols = t.列 or (["位置", "番号", "機種", "発行箇所名"] + (["優先"] if prio else [])) %}
+{% set preface = t.前書き if t.前書き is defined else cols[0] != "摘要" %}
+<table{% if t.表クラス %} class="{{ t.表クラス }}"{% endif %}>
+{% if preface %}
+◆端末設置状況
+{% endif %}
+<thead>
+<tr>{% for c in cols %}<th>{{ c }}</th>{% endfor %}</tr>
+</thead>
+<tbody>
+{% for r in t.端末 %}
+<tr>{% for c in cols %}<td>{{ cell(c, r.get(c, "-")) }}</td>{% endfor %}</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endmacro %}
+{% macro block(b) %}
+{% if b.内容 %}
+{% for x in b.内容 %}
+{% if x.説明 %}{{ para(x.説明) }}{% else %}{{ table(x) }}{% endif %}
+{% endfor %}
+{% else %}
+{% if b.説明 %}{{ para(b.説明) }}{% endif %}
+{% if b.端末 is defined %}{{ table(b) }}{% endif %}
+{% endif %}
+{% endmacro %}
+{% block main %}
+<div class="station-container">
+<h2>{{ st.駅名 }}</h2>
+<h4>{{ st.よみ }}　{{ st.ローマ字 }}</h4>
+<p>{{ st.会社 }} ／ {{ st.支社 }} ／ {{ st.管轄 or "" }} ／ {{ st.形態 }}</p>
+<p class="station-image">
+<img alt="{{ st.画像説明 or (st.駅名 ~ '駅の画像' if st.画像 else '駅の画像') }}" src="{{ st.画像 or root ~ 'images/station.png' }}" />
+</p>
+{% if st.駅注記 %}{{ para(st.駅注記) }}{% endif %}
+{% for f in st.設備 %}
+<h3>{{ f.名称 }}</h3>
+{{ block(f) }}
+{% for pl in f.場所 or [] %}
+{% if pl.定型文 == "優先順位について" %}
+<h4>優先順位について</h4>
+<p>
+Ｓ：必ず開設される端末<br />
+Ａ-Ｃ：開設優先順位が比較的高い端末<br />
+Ｄ-Ｆ：開設優先順位が比較的低い端末<br />
+Ｇ：休眠・不使用端末<br />
+Ｚ：開設優先順位が不明な端末
+</p>
+{% else %}
+<h4>{{ pl.名称 }}</h4>
+{{ block(pl) }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+</div>
+{% endblock %}
