@@ -113,7 +113,7 @@ https://desktop.github.com から入れて、作ったアカウントでサイ�
 
 ## 7. ふだんの更新
 
-1. `data/05-Shikoku/<駅>.yaml` を直す（書き方は `CLAUDE.md` の表を参照）
+1. `data/05-Shikoku/<駅>.yaml` を直す（書き方は `AGENTS.md` の表を参照）
 2. GitHub Desktop で Commit → Push
 3. Actions タブで緑のチェックを確認
 
