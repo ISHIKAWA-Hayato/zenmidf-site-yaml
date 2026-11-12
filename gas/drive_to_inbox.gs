@@ -5,7 +5,8 @@
  * ファイル名: <会社番号2桁>-<駅ID>.<拡張子>  例: 32-takaoka.png / 06-sasabaru.jpg
  * この形になっていない写真（IMG_1234.JPG など）は、駅を自動で当てる:
  *   1. 写真の位置情報（ドライブが読み取った撮影地点）から一番近い駅
- *   2. 位置情報がない・近い駅が複数あるときは、写真の文字を OCR で読んで駅名を探す（駅舎の「○○駅」を優先）
+ *   2. 近い駅が複数あるときは、写真の文字を OCR で読んでその中から駅名を探す（駅舎の「○○駅」を優先）
+ *   位置情報がない写真は自動では決めず「要確認」へ（OCR で読めた駅名を説明に書く。人が確認して名前を付ける）
  *   → 1駅に決まれば「06-isahaya.jpg」のように名前を付け直して送る（ファイルの説明に判定の根拠を書く）
  *   → 決まらなければ「要確認」フォルダへ移し、説明に候補を書く。名前を付けて「受付」に戻せば次の回で送られる
  *   JR と三セクで駅舎が同じ駅（高岡・富山など）は会社が決まらないので、必ず「要確認」になる
@@ -172,13 +173,19 @@ function identify_(file, stations) {
   }
   const text = ocr_(file);
   const pool = near || stations;
-  if (!text) return { review: pool === stations ? [] : pool, why: loc ? '近くに駅がなく、文字も読み取れませんでした' : '位置情報がなく、文字も読み取れませんでした' };
+  const hasLoc = !!(loc && loc.latitude != null && loc.longitude != null);
+  if (!text) return { review: pool === stations ? [] : pool, why: hasLoc ? '近くに駅がなく、文字も読み取れませんでした' : '位置情報がなく、文字も読み取れませんでした' };
   const hits = matchText_(text, pool);
   // 看板の「○○駅」がこちらにない駅の名前で、ほかの一致がローマ字・駅名だけ（弱い）なら、ページのない駅の写真とみなす
   // （例: 「城北公園通駅」の写真の広告の HIROSHIMA を広島と見なさない）
   const read = stationLike_(text).filter(n => !stations.some(s => s.bare + '駅' === n));
   if (!near && read.length && !hits.some(h => h.hit === h.bare + '駅')) {
     return { notImplemented: true, why: '看板の駅名「' + read.join('」「') + '」は読めましたが、サイトにまだ駅ページがありません' };
+  }
+  // 位置情報がない写真は OCR だけで決めない（読み違いで別の駅に付くのを防ぐ）。読めた駅名は候補として残し、人が確認する
+  if (!hasLoc) {
+    return { review: hits, why: '位置情報がないため自動では決めません' +
+             (hits.length ? '（文字から読めた駅名: ' + unique_(hits.map(h => h.hit)).join('・') + '）' : '（文字から駅名は読み取れませんでした）') };
   }
   if (hits.length === 1 && !near && hits[0].dup > 1) {
     // 全国に同じ名前の駅があり（柏原・橋本など）、こちらにページがあるのはその1つだけ。位置情報がないので決めない
