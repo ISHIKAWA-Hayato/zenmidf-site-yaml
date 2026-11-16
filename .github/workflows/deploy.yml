@@ -63,7 +63,7 @@ jobs:
         run: python tools/build.py
 
       # 安全装置：リポジトリ変数 DEPLOY_ALL が "true" になるまでは常に試運転
-      # 対象：data/ にある会社（いまは JR西日本・JR四国・JR九州・私鉄・三セク9社）の駅ページと一覧
+      # 対象：data/ にある会社（JR6社・私鉄・三セク9社）の駅ページと一覧
       - name: 駅別ページをアップロード
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
