@@ -69,6 +69,24 @@ jobs:
       # 安全装置：リポジトリ変数 DEPLOY_ALL が "true" になるまでは常に試運転
       # 対象：data/ にある会社（JR6社・私鉄・三セク9社）の駅ページと一覧
       - name: 駅別ページをアップロード
+        id: ftp_station
+        continue-on-error: true   # 途中で接続が切れることがある（ECONNRESET）。次の手順で1回だけやり直す
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftp.lolipop.jp
+          protocol: ftps
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/station-individual/
+          server-dir: html/station-individual/
+          dry-run: ${{ vars.DEPLOY_ALL != 'true' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+          # 駅写真（data/<会社>/images/）もアップロードする。サーバーにしかない写真は消さない
+          exclude: |
+            **/.git*
+            **/.git*/**
+
+      - name: 駅別ページをアップロード（失敗したらやり直し）
+        if: steps.ftp_station.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ftp.lolipop.jp
@@ -86,6 +104,21 @@ jobs:
       # トップ階層のページ（pages/ から生成。ホーム・About US・エラーページなど）
       # サーバーの html/ 直下に上書きする。ここで上げたことのないファイル（css・js・images など）は消さない
       - name: トップ階層のページをアップロード
+        id: ftp_top
+        continue-on-error: true   # 途中で接続が切れることがある（ECONNRESET）。次の手順で1回だけやり直す
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftp.lolipop.jp
+          protocol: ftps
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/top/
+          server-dir: html/
+          state-name: .ftp-deploy-sync-state-top.json
+          dry-run: ${{ vars.DEPLOY_ALL != 'true' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+
+      - name: トップ階層のページをアップロード（失敗したらやり直し）
+        if: steps.ftp_top.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ftp.lolipop.jp
