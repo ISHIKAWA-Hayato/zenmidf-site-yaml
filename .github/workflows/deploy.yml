@@ -33,8 +33,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # main は保護されていて、Actions の既定のトークンでは書き戻せない。
+      # 代表の個人用アクセストークン（Secrets の WRITEBACK_TOKEN、このリポジトリの Contents 読み書きだけ）で書き戻す
       - name: リポジトリを取得
         uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.WRITEBACK_TOKEN || github.token }}
 
       - name: Python を準備
         uses: actions/setup-python@v6
@@ -55,7 +59,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
           git add -A inbox data
-          git commit -m "駅写真を取り込み（${{ steps.images.outputs.done }}枚、上書きせず${{ steps.images.outputs.skipped }}枚、失敗${{ steps.images.outputs.errors }}枚）: ${{ steps.images.outputs.names }}"
+          git commit -m "[skip ci] 駅写真を取り込み（${{ steps.images.outputs.done }}枚、上書きせず${{ steps.images.outputs.skipped }}枚、失敗${{ steps.images.outputs.errors }}枚）: ${{ steps.images.outputs.names }}"
           git pull --rebase origin main
           git push origin HEAD:main
 
