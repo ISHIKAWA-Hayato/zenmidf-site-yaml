@@ -12,12 +12,20 @@ KEEP = ("class", "href", "src", "alt", "id", "type", "placeholder", "for")
 
 
 def ser(el):
+    if not isinstance(el.tag, str):  # コメント（表示されない）は中身を捨て、後ろの文字だけ残す
+        return ""
     tag = el.tag.split("}")[-1]
     attrs = "".join(f' {k}="{el.get(k)}"' for k in KEEP if el.get(k) is not None)
     out = f"<{tag}{attrs}>" + (el.text or "")
     for ch in el:
         out += ser(ch) + (ch.tail or "")
     return out + f"</{tag}>"
+
+
+# 意図して変えた表記（元のページ側をこちらに読み替えて比べる）
+KNOWN_CHANGES = [
+    ("以下の時間帯は駅社員が不在となります。", "以下の時間帯は係員が不在となります。"),  # 簡易委託駅も含むので「係員」に統一
+]
 
 
 def normalize(main_inner):
@@ -29,6 +37,9 @@ def normalize(main_inner):
     s = re.sub(r" +", " ", s)
     s = re.sub(rf" ?(</?(?:{BLOCK})\b[^>]*>) ?", r"\1", s)  # ブロック境界の空白は表示されない
     s = s.replace("</br>", "")
+    s = s.replace("<tr></tr>", "")  # 中身のない行は表示されない
+    s = s.replace("<p></p>", "")  # 表示に影響しない
+    s = re.sub(r"</?t(head|body)>", "", s)  # 表の見出し・本体の区切り（見出しの中に行を書いたページも同じに見る）
     s = re.sub(r"(<br>)+</p>", "</p>", s)  # 段落末尾の<br>は表示されない
     return re.sub(r"(?=<(?:h2|h3|h4|p|table|tr|li|details)\b)", "\n", s).strip()
 
@@ -45,6 +56,8 @@ def run(orig_dir, gen_dir):
             print(f"□ 生成なし: {f.name}")
             continue
         src = f.read_text(encoding="utf-8")
+        for old, new in KNOWN_CHANGES:
+            src = src.replace(old, new)
         a = normalize(main_of(src) if "<main>" in src else src)  # 元はmainだけでもページ丸ごとでもよい
         b = normalize(main_of(g.read_text(encoding="utf-8")))
         if a == b:

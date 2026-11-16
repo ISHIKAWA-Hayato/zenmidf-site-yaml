@@ -98,12 +98,18 @@ def load_company(folder):
     return idx, stations
 
 
+def station_root(idx):
+    """駅別ページの出力先。一覧データに「準備中: true」がある会社（FTP から移行中）は dist/staging/ に作り、
+    本番へのアップロード（dist/station-individual/）には含めない。本番のページとの照合だけに使う"""
+    return DIST / ("staging" if idx.get("準備中") else "") / "station-individual"
+
+
 def build_company(folder, env, site, everyone):
     """everyone: {会社フォルダ(data/からの相対): (一覧データ, {駅ID: 駅データ})}。他社駅の解決に使う"""
     rel = folder.relative_to(DATA)
     idx, stations = everyone[rel.as_posix()]
     ctx = page_ctx(rel, site)
-    out = DIST / "station-individual" / rel
+    out = station_root(idx) / rel
     out.mkdir(parents=True, exist_ok=True)
     if (folder / "images").is_dir():
         shutil.copytree(folder / "images", out / "images", dirs_exist_ok=True)
@@ -134,10 +140,10 @@ def build_company(folder, env, site, everyone):
         return {**line, "stations": items}
 
     if "エリア" in idx:
-        areas = [{**a, "lines": [view(l) for l in a["路線"]]} for a in idx["エリア"]]
+        areas = [{**a, "lines": [view(l) if "駅" in l else l for l in a["路線"]]} for a in idx["エリア"]]   # 「HTML:」は路線の間の注記
         lines = None
     else:
-        areas, lines = None, [view(l) for l in idx["路線"]]
+        areas, lines = None, [view(l) if "駅" in l else l for l in idx["路線"]]
     html = env.get_template("company.html").render(site=site, company=idx, lines=lines, areas=areas, **ctx)
     (out / idx["ファイル名"]).write_text(html, encoding="utf-8")
     return len(stations)
@@ -182,9 +188,12 @@ def write_station_list(everyone):
         code = re.match(r"^(\d{2})-", folder.rsplit("/", 1)[-1])
         if not code:
             continue
+        staging = bool(idx.get("準備中"))
         for sid, st in stations.items():
             e = {"code": code.group(1), "folder": folder, "id": sid, "name": st.get("駅名", ""),
                  "yomi": st.get("よみ", ""), "roman": st.get("ローマ字", "")}
+            if staging:   # 移行中の会社：本番のページはまだ FTP 側。写真は「未実装」に回す（駅IDを空にする）
+                e.update(id="", company=idx.get("会社名", folder), line="")
             if (folder, sid) in coords:
                 e["lat"], e["lon"] = coords[(folder, sid)]
             if (folder, sid) in dups:
@@ -238,7 +247,8 @@ def main():
     everyone = {f.relative_to(DATA).as_posix(): load_company(f) for f in folders}
     for folder in folders:
         n = build_company(folder, env, site, everyone)
-        print(f"{folder.relative_to(DATA).as_posix()}: 駅ページ {n} 枚 + 一覧 1 枚")
+        note = "（準備中：dist/staging に生成、本番には上げない）" if everyone[folder.relative_to(DATA).as_posix()][0].get("準備中") else ""
+        print(f"{folder.relative_to(DATA).as_posix()}: 駅ページ {n} 枚 + 一覧 1 枚{note}")
     for folder in sorted(p.parent for p in DATA.rglob("_portal.yaml")):
         n = build_portal(folder, env, site)
         print(f"{folder.relative_to(DATA).as_posix()}: 入口ページ（{n} 社）")

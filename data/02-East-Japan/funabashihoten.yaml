@@ -1,0 +1,17 @@
+駅名: 船橋法典
+よみ: ふなばしほうてん
+ローマ字: Funabasihoten
+会社: 東日本旅客鉄道
+支社: 京葉総武事業本部
+形態: 直営駅
+設備:
+- 名称: 改札窓口
+  場所:
+  - 名称: 正面口
+    説明:
+    - 営業時間: 6:30～最終
+    - 社員不在: 20:00～20:30, 21:40～22:00, 23:30～23:50
+    - HTML: <h4>臨時口（中山競馬場専用口）</h4><p> 営業時間 <span class="business-hour-text"> - </span> <br/> <span class="unknown-text"> 競馬開催時のみ開放します。</span> </p><h3>指定席券売機</h3><h4>正面口付近</h4><p> 営業時間 <span class="business-hour-text">
+        6:30～23:55 </span> </p><table> ◆端末設置状況 <thead> <tr> <th>位置</th> <th>番号</th> <th>機種</th> <th>発行箇所名</th> </tr> </thead> <tbody> <tr> <td>-</td> <td>４番</td> <td>MV50</td> <td>船橋法典駅ＶＦ１</td> </tr> </tbody>
+        </table><h3>多機能券売機</h3><h4>正面口付近</h4><p> 営業時間 <span class="business-hour-text"> 始発～最終 </span> </p><table> ◆端末設置状況 <thead> <tr> <th>位置</th> <th>番号</th> <th>機種</th> <th>発行箇所名</th> </tr> </thead> <tbody>
+        <tr> <td>-</td> <td>３番</td> <td>JREM/EM20</td> <td>１０３</td> </tr> </tbody> </table>

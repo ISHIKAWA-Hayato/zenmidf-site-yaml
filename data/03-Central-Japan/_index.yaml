@@ -1,0 +1,132 @@
+会社名: JR東海
+会社コード: 3
+準備中: true   # FTP からの移行の準備期間。本番には上げず、毎日本番のページと照合する
+ファイル名: 03-central-japan.html
+説明: ＪＲ東海主要各駅のデータ
+絞り込み例: 名古屋
+一覧クラス: station-name-03
+凡例:
+- [to_3, きっぷうりば アイコン, ＪＲ全線きっぷうりば]
+- [amv_3, アシストマルス アイコン, サポートつき指定席券売機（アシストマルス）]
+- [mv_3, 指定席券売機 アイコン, 指定席券売機]
+- [tokai-tours, ＪＲ東海ツアーズ アイコン, ＪＲ東海ツアーズ支店]
+アイコン規則:
+- [1, to_3, [ＪＲ全線きっぷうりば]]
+- [2, amv_3, [サポートつき指定席券売機]]
+- [3, mv_3, [指定席券売機]]
+- [6, tokai-tours, [ＪＲ東海ツアーズ*]]
+エリア:
+- ID: chukyo
+  名称: 中京エリア
+  路線:
+  - 名称: 飯田線
+    駅:
+    - toyohashi
+    - toyokawa
+    - shinshiro
+    - higashi-shinmachi
+    - hon-nagashino
+    - chubu-tenryu
+    - tenryukyo
+    - iida
+    - ichida
+    - ina-oshima
+    - iijima
+    - komagane
+    - inashi
+    - ina-matsushima
+    - {他社駅: 02-East-Japan/tatsuno}
+  - 名称: 関西本線
+    駅: [nagoya, hatta, haruta, kanie, yatomi, kuwana, yokkaichi, kan_kameyama]
+  - 名称: 紀勢本線
+    駅:
+    - kan_kameyama
+    - tsu
+    - matsusaka
+    - taki
+    - kii-nagashima
+    - owase
+    - kumanoshi
+    - {他社駅: 04-West-Japan/shingu}
+  - 名称: 参宮線
+    駅: [taki, iseshi, toba]
+  - 名称: 太多線
+    駅: [tajimi, koizumi, nemoto, kani, mino-ota]
+  - 名称: 高山本線
+    駅:
+    - gifu
+    - unuma
+    - mino-ota
+    - shirakawaguchi
+    - {駅: hida-kanayama, 表示名: 飛彈金山}
+    - gero
+    - {駅: hida-hagiwara, 表示名: 飛彈萩原}
+    - takayama
+    - {駅: hida-furukawa, 表示名: 飛彈古川}
+  - 名称: 武豊線
+    駅: [obu, handa]
+  - 名称: 中央本線
+    駅:
+    - {他社駅: 02-East-Japan/shiojiri}
+    - narai
+    - yabuhara
+    - kiso-fukushima
+    - agematsu
+    - nojiri
+    - nagiso
+    - sakashita
+    - nakatsugawa
+    - mino-sakamoto
+    - ena
+    - takenami
+    - kamado
+    - mizunami
+    - tokishi
+    - tajimi
+    - kozoji
+    - jinryo
+    - kasugai
+    - kachigawa
+    - shin-moriyama
+    - ozone
+    - chikusa
+    - tsurumai
+    - chu_kanayama
+    - nagoya
+  - 名称: 東海道本線（中京）
+    後注記: ※米原駅は在来線（JR西日本）の情報となります。JR東海・米原駅は東海道新幹線の項目からご確認いただけます。（未実装）
+    駅:
+    - futagawa
+    - toyohashi
+    - gamagori
+    - koda
+    - okazaki
+    - anjo
+    - mikawa-anjo
+    - higashi-kariya
+    - kariya
+    - obu
+    - kyowa
+    - minami-odaka
+    - odaka
+    - kasadera
+    - atsuta
+    - chu_kanayama
+    - otobashi
+    - nagoya
+    - biwajima
+    - inazawa
+    - owari-ichinomiya
+    - gifu
+    - nishi-gifu
+    - hozumi
+    - ogaki
+    - tarui
+    - sekigahara
+    - to_kashiwabara
+    - samegai
+    - リンク: .html
+      表示名: 米原
+      アイコン: [to_1-2-4-5-6, none, mv_4, none, none, none]
+  - 名称: 名松線
+    駅: [matsusaka, ieki]

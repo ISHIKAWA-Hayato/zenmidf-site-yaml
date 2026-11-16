@@ -8,7 +8,7 @@ import sys
 import re
 import pathlib
 import yaml
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 
 DEFAULT_IMAGE = re.compile(r"(\.\./)+images/station\.png")  # 階層の深さによらず共通画像
 STD_COLS = ["位置", "番号", "機種", "発行箇所名"]
@@ -61,6 +61,8 @@ def split_lines(p):
     for parts in lines:
         segs = []
         for n in parts:
+            if isinstance(n, Comment):
+                continue   # HTML のコメント（編集者のメモ）は表示されないので落とす
             if isinstance(n, NavigableString):
                 if clean(n):
                     segs.append(("text", clean(n), n))
@@ -118,7 +120,10 @@ def parse_lines(p):
         elif kinds == ["unknown-text"]:
             items.append({"注記": span_text(segs[0][1])})
         elif kinds == ["text"]:
-            items.append({"文": segs[0][1]})
+            text = segs[0][1]
+            if text in ABSENT_INTROS:   # 「駅社員が不在」は「係員が不在」に統一（簡易委託駅も含むため）
+                text = ABSENT_INTROS[1]
+            items.append({"文": text})
         elif kinds == ["text", "a"] and segs[0][1].endswith("は") and clean(segs[1][1].get_text()) == "こちら":
             # 「JR西日本糸魚川駅は<a href=…>こちら</a>」→ 他社ページへの案内
             items.append(Flow({"他社ページ": segs[0][1][:-1], "リンク": segs[1][1]["href"]}))
@@ -135,6 +140,8 @@ def cell_value(td, col):
         alt = imgs[0].get("alt")
         assert MARS_ICONS.get(alt) and MARS_ICONS[alt] in imgs[0]["src"], str(td)
         return alt
+    for k in td.find_all(string=lambda t: isinstance(t, Comment)):
+        k.extract()   # 編集者のメモ（表示されない）は落とす
     kids = [k for k in td.children if not (isinstance(k, NavigableString) and not clean(k))]
     if len(kids) == 1 and isinstance(kids[0], Tag) and kids[0].name == "span" and kids[0].get("class") == ["unknown-text"]:
         return Flow({"薄字": clean(kids[0].get_text())})
@@ -145,7 +152,10 @@ def cell_value(td, col):
 def parse_table(table):
     cols = [re.sub(r"[\s　]+", "", th.get_text()) for th in table.select("thead th")]
     rows = []
-    for tr in table.select("tbody tr"):
+    body_rows = table.select("tbody tr") or table.select("thead tr")[1:]   # 見出しの中に行を書いてしまったページもある
+    for tr in body_rows:
+        if not tr.find_all("td"):
+            continue   # 中身のない行（表示されない）
         vals = [cell_value(td, c) for c, td in zip(cols, tr.find_all("td"))]
         assert len(vals) == len(cols), str(tr)
         rows.append(Flow({c: v for c, v in zip(cols, vals) if v != "-"}))
@@ -193,19 +203,47 @@ def finish_place(place):
         place["内容"] = content
 
 
+def _split_br(p):
+    segs, cur = [], []
+    for n in p.children:
+        if isinstance(n, Tag) and n.name == "br":
+            segs.append(cur)
+            cur = []
+        elif not isinstance(n, Comment):
+            cur.append(n)
+    segs.append(cur)
+    return [s for s in segs if clean("".join(str(n) for n in s))]
+
+
+def heading_name(h):
+    """見出しの名前（後ろの <span class="unknown-text">【個札不可】</span> は除く）"""
+    return clean("".join(n.get_text() if isinstance(n, Tag) else str(n) for n in h.children
+                         if not (isinstance(n, Comment) or (isinstance(n, Tag) and n.get("class") == ["unknown-text"]))))
+
+
+def heading_note(h):
+    sp = h.find("span", class_="unknown-text")
+    return clean(sp.get_text()) if sp else None
+
+
 def convert(main_html):
     soup = BeautifulSoup(main_html, "html.parser")
     c = soup.select_one(".station-container")
     kids = [k for k in c.children if isinstance(k, Tag)]
     h2, h4, aff, imgp = kids[:4]
     m = re.fullmatch(r"(.*?)[　 ]+(.*)", clean(h4.get_text()))
-    kana, roman = m.group(1), m.group(2)
-    parts = [clean(x) for x in aff.get_text().split("／", 3)]
+    kana, roman = (m.group(1), m.group(2)) if m else (clean(h4.get_text()), "")   # ローマ字のない駅もある（池田）
+    aff_lines = [clean("".join(str(n) for n in seg)) for seg in _split_br(aff)]
+    parts = [clean(x) for x in BeautifulSoup(aff_lines[0], "html.parser").get_text().split("／", 3)]
     company, branch, district, kind = parts
     st = {"駅名": clean(h2.get_text()), "よみ": kana, "ローマ字": roman, "会社": company, "支社": branch}
+    if not roman:
+        del st["ローマ字"]
     if district:
         st["管轄"] = district
     st["形態"] = kind
+    if len(aff_lines) > 1:   # 所属の行の下の注記（「※駅名と発行箇所名で表記が異なります。」など）
+        st["所属注記"] = "<br />".join(aff_lines[1:])
     img = imgp.find("img")
     if not DEFAULT_IMAGE.fullmatch(img["src"]):
         st["画像"] = img["src"]
@@ -216,18 +254,26 @@ def convert(main_html):
     # 画像の段落に一緒に書かれた案内（「JR西日本○○駅は<a>こちら</a>」など）は駅注記へ
     img.extract()
     image_notes = parse_lines(imgp) if clean(imgp.get_text()) else []
+    plain = [x for x in image_notes if not x.get("空行")]
+    if len(plain) == 1 and "文" in plain[0]:   # 画像の下の一行（「写真提供：○○」など）は画像の段落に残す
+        st["画像注記"] = plain[0]["文"]
+        image_notes = []
 
     facilities, fac, place = [], None, None
     head = {"_seq": []}  # 最初の設備より前（駅全体への注記）
     places = [head]
     for el in kids[4:]:
         if el.name == "h3":
-            fac = {"名称": clean(el.get_text()), "_seq": []}
+            fac = {"名称": heading_name(el), "_seq": []}
+            if heading_note(el):
+                fac["名称注記"] = heading_note(el)
             facilities.append(fac)
             place = fac
             places.append(fac)
         elif el.name == "h4":
-            place = {"名称": clean(el.get_text()), "_seq": []}
+            place = {"名称": heading_name(el), "_seq": []}
+            if heading_note(el):
+                place["名称注記"] = heading_note(el)
             fac.setdefault("場所", []).append(place)
             places.append(place)
         elif el.name == "p":
@@ -261,17 +307,24 @@ def main(src, dst, names=None):
     dst = pathlib.Path(dst)
     dst.mkdir(parents=True, exist_ok=True)
     files = [pathlib.Path(src) / n for n in names] if names else sorted(pathlib.Path(src).glob("*.html"))
-    done = 0
+    done, failed = 0, []
     for f in files:
         html = f.read_text(encoding="utf-8")
         if not names and 'id="station-search"' in html:
             continue  # 会社一覧ページ（index2yaml の担当）
-        data = convert(main_of(html) if "<main>" in html else html)
+        try:
+            data = convert(main_of(html) if "<main>" in html else html)
+        except Exception as e:   # 解釈できないページは飛ばして最後に一覧する（1駅の失敗で全部を止めない）
+            failed.append((f.name, f"{type(e).__name__}: {str(e)[:160]}"))
+            continue
         if not names and data["駅名"] == "xx":
             continue  # 雛形
         done += 1
         (dst / (f.stem + ".yaml")).write_text(dump(data), encoding="utf-8")
-    print(f"変換 {done if not names else len(files)} 駅 → {dst}")
+    print(f"変換 {done} 駅 → {dst}" + (f"、変換できなかった駅 {len(failed)}" if failed else ""))
+    for name, why in failed:
+        print(f"  ✗ {name}: {why}")
+    return failed
 
 
 if __name__ == "__main__":

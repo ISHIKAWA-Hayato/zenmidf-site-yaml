@@ -1,0 +1,60 @@
+会社名: JR北海道
+会社コード: 1
+準備中: true   # FTP からの移行の準備期間。本番には上げず、毎日本番のページと照合する
+ファイル名: 01-hokkaido.html
+説明: ＪＲ北海道主要各駅のデータ
+絞り込み例: 札幌
+一覧クラス: station-name-01
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, みどりの窓口]
+- [amv_1, アシストマルス アイコン, 話せる券売機（アシストマルス）]
+- [mv_1, 指定席券売機 アイコン, 指定席券売機]
+アイコン規則:
+- [1, to_1-2-4-5-6, [みどりの窓口]]
+- [2, amv_1, [話せる券売機]]
+- [3, mv_1, [指定席券売機]]
+路線:
+- 名称: 札沼線（学園都市線）
+  駅: [sapporo, soen, hachiken, shinkawa, shin-kotoni, shinoro, takuhoku, ainosato-kyoikudai, tobetsu]
+- 名称: 石勝線
+  駅: [minami-chitose, muro_oiwake, shin-yubari, tomamu, shintoku]
+- 名称: 石北本線
+  駅: [asahikawa, kamikawa, engaru, kitami, abashiri]
+- 名称: 釧網本線
+  駅: [kushiro, shibecha, mashu, shiretoko-shari, abashiri]
+- 名称: 宗谷本線
+  駅: [asahikawa, nagayama, shibetsu, nayoro, otoineppu, horonobe, minami-wakkanai, wakkanai]
+- 名称: 千歳線
+  駅: [sapporo, naebo, hako_shiroishi, heiwa, shin-sapporo, kami-nopporo, kita-hiroshima, shimamatsu, megumino, eniwa, chi_chitose, minami-chitose, new-chitose-airport, tomakomai]
+- 名称: 根室本線
+  駅: [takikawa, furano, shintoku, tokachi-shimizu, memuro, obihiro, satsunai, makubetsu, ikeda, urahoro, shiranuka, kushiro, akkeshi, nemuro]
+- 名称: 函館本線
+  駅: [hakodate, goryokaku, nanae, shin-hakodate-hokuto, onumakoen, mori, yakumo, oshamanbe, kucchan, yoichi, otaru, minami-otaru, otaruchikko, zenibako, hoshioki, teine, inazumikoen, hassamu, hassamuchuo,
+    kotoni, soen, sapporo, naebo, hako_shiroishi, atsubetsu, shinrinkoen, oasa, nopporo, takasago, ebetsu, horomui, iwamizawa, bibai, sunagawa, takikawa, fukagawa, asahikawa]
+- 名称: 日高本線
+  駅: [tomakomai]
+- 名称: 富良野線
+  駅: [asahikawa, biei, kami-furano, furano]
+- 名称: 北海道新幹線
+  駅:
+  - {他社駅: 02-East-Japan/shin-aomori}
+  - okutsugaru-imabetu
+  - kikonai
+  - shin-hakodate-hokuto
+- 名称: 室蘭本線
+  駅: [oshamanbe, toya, datemombetsu, higashi-muroran, muroran, horobetsu, noboribetsu, shiraoi, tomakomai, muro_oiwake, iwamizawa]
+付記HTML: |-
+  <div class="station-container">
+  <h3>JR北海道管内の業務委託駅に関して</h3>
+  <h4>委託先企業</h4>
+  <h5>管内全域</h5>
+  <ul>
+  <li>株式会社北海道ジェイ・アール・サービスネット（JRS）</li>
+  </ul>
+  <h3>駅業務他社委託駅（他社委託駅）について</h3>
+  <p>※一部委託駅は除きます。</p>
+  <h5>道南・青森エリア</h5>
+  <ul>
+  <li><a href="../02-East-Japan/shin-aomori.html">新青森（JR東日本）</a></li>
+  </ul>
+  </div>

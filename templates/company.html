@@ -5,7 +5,7 @@
 {% set current = company.会社名 %}
 {% macro line_block(line) %}
 <details class="train-line-section">
-<summary><h3>{{ line.名称 }}</h3></summary>
+<summary><h3{% if line.ID %} id="{{ line.ID }}"{% endif %}>{{ line.名称 }}</h3></summary>
 {% if line.注記 %}
 <p>
 {{ line.注記 }}
@@ -25,8 +25,13 @@
 </li>
 {% endfor %}
 </ul>
+{% if line.後注記 %}
+<p>{{ line.後注記 }}</p>
+{% endif %}
 </details>
 {% endmacro %}
+{% macro line_or_note(line) %}{% if line.HTML %}{{ line.HTML }}
+{% else %}{{ line_block(line) }}{% endif %}{% endmacro %}
 {% block main %}
 <div class="station-container">
 <h2>{{ company.会社名 }}</h2>
@@ -61,10 +66,10 @@
 </p>
 {% for a in areas %}
 <h2 id="{{ a.ID }}">{{ a.名称 }}</h2>
-{% for line in a.lines %}{{ line_block(line) }}{% endfor %}
+{% for line in a.lines %}{{ line_or_note(line) }}{% endfor %}
 {% endfor %}
 {% else %}
-{% for line in lines %}{{ line_block(line) }}{% endfor %}
+{% for line in lines %}{{ line_or_note(line) }}{% endfor %}
 {% endif %}
 </div>
 {% if company.付記HTML %}

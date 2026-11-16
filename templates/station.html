@@ -70,14 +70,14 @@
 {% block main %}
 <div class="station-container">
 <h2>{{ st.駅名 }}</h2>
-<h4>{{ st.よみ }}　{{ st.ローマ字 }}</h4>
-<p>{{ st.会社 }} ／ {{ st.支社 }} ／ {{ st.管轄 or "" }} ／ {{ st.形態 }}</p>
+<h4>{{ st.よみ }}{% if st.ローマ字 %}　{{ st.ローマ字 }}{% endif %}</h4>
+<p>{{ st.会社 }} ／ {{ st.支社 }} ／ {{ st.管轄 or "" }} ／ {{ st.形態 }}{% if st.所属注記 %}<br />{{ st.所属注記 }}{% endif %}</p>
 <p class="station-image">
-<img alt="{{ st.画像説明 or (st.駅名 ~ '駅の画像' if st.画像 else '駅の画像') }}" src="{{ st.画像 or root ~ 'images/station.png' }}" />
+<img alt="{{ st.画像説明 or (st.駅名 ~ '駅の画像' if st.画像 else '駅の画像') }}" src="{{ st.画像 or root ~ 'images/station.png' }}" />{% if st.画像注記 %}<br />{{ st.画像注記 }}{% endif +%}
 </p>
 {% if st.駅注記 %}{{ para(st.駅注記) }}{% endif %}
 {% for f in st.設備 %}
-<h3>{{ f.名称 }}</h3>
+<h3>{{ f.名称 }}{% if f.名称注記 %}<span class="unknown-text">{{ f.名称注記 }}</span>{% endif %}</h3>
 {{ block(f) }}
 {% for pl in f.場所 or [] %}
 {% if pl.定型文 == "優先順位について" %}
@@ -90,7 +90,7 @@
 Ｚ：開設優先順位が不明な端末
 </p>
 {% else %}
-<h4>{{ pl.名称 }}</h4>
+<h4>{{ pl.名称 }}{% if pl.名称注記 %}<span class="unknown-text">{{ pl.名称注記 }}</span>{% endif %}</h4>
 {{ block(pl) }}
 {% endif %}
 {% endfor %}

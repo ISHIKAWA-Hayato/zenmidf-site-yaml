@@ -1,0 +1,16 @@
+駅名: 喜多方
+よみ: きたかた
+ローマ字: Kitakata
+会社: 東日本旅客鉄道
+支社: 福島事業本部
+形態: 業務委託駅（LiViT）
+設備:
+- 名称: 改札窓口
+  説明:
+  - 営業時間: 5:35～23:20
+  - 社員不在: 6:15～6:35, 8:35～9:10, 10:50～11:20, 12:40～13:30, 14:10～14:30, 16:30～16:50, 19:00～19:45, 21:25～21:45, 22:40～23:10
+  - HTML: <span class="unknown-text"> ※列車別改札実施駅 </span><h3>みどりの窓口</h3><h4>改札付近</h4><p> 営業時間 <span class="business-hour-text"> 6:00～20:00 </span> <br/> 以下の時間帯は休止となります。 <br/> <span class="business-hour-text">
+      6:15～6:35, 8:35～9:10, 10:50～11:20, 12:40～13:30, 14:10～14:30, 16:30～16:50, 19:00～19:45 </span> </p><table> ◆端末設置状況 <thead> <tr> <th>位置</th> <th>番号</th> <th>機種</th> <th>発行箇所名</th> </tr> </thead> <tbody>
+      <tr> <td>-</td> <td>-</td> <td>MR52N</td> <td>喜多方駅ＦＮ１</td> </tr> </tbody> </table><h4>端末設置・撤去情報</h4><table> <thead> <tr> <th>摘要</th> <th>機種</th> <th>発行箇所名</th> <th>施行確認日</th> </tr> </thead> <tbody>
+      <tr> <td><img alt="設置" class="mars-info" src="../../svg/mars-install.svg"/></td> <td>MR52N</td> <td>喜多方駅ＦＮ１</td> <td>2026/08/29</td> </tr> <tr> <td><img alt="撤去" class="mars-info" src="../../svg/mars-remove.svg"/></td>
+      <td>ME-4</td> <td>喜多方駅Ｅ</td> <td>2026/08/29</td> </tr> </tbody> </table>

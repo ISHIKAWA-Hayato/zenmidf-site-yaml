@@ -107,6 +107,8 @@ def neighbor_map():
         d = yaml.safe_load(idx.read_text(encoding="utf-8"))
         lines = d.get("路線") or [l for a in d.get("エリア", []) for l in a["路線"]]
         for line in lines:
+            if "駅" not in line:
+                continue   # 路線の間の注記（HTML:）
             ids = [e if isinstance(e, str) else e.get("駅") for e in line["駅"]]
             for i, sid in enumerate(ids):
                 if not sid:

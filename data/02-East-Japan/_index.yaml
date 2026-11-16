@@ -1,0 +1,805 @@
+会社名: JR東日本
+会社コード: 2
+準備中: true   # FTP からの移行の準備期間。本番には上げず、毎日本番のページと照合する
+ファイル名: 02-east-japan.html
+説明: ＪＲ東日本主要各駅のデータ
+絞り込み例: 新宿
+一覧クラス: station-name-02
+凡例:
+- [to_1-2-4-5-6, みどりの窓口 アイコン, みどりの窓口]
+- [temporary_to, みどりの窓口（臨時営業） アイコン, みどりの窓口（臨時営業）]
+- [amv_2, アシストマルス アイコン, 話せる指定席券売機（アシストマルス）]
+- [mv_2, 指定席券売機 アイコン, 指定席券売機]
+- [pos_2-4-6, きっぷうりば アイコン, ＰＯＳきっぷうりば]
+- [em_2, 多機能券売機 アイコン, 多機能券売機]
+- [eki-tabi, 駅たびコンシェルジュ アイコン, 駅たびコンシェルジュ]
+- [honichi, 訪日外国人窓口 アイコン, 訪日外国人窓口]
+アイコン規則:
+- [1, to_1-2-4-5-6, [みどりの窓口]]
+- [2, amv_2, [話せる指定席券売機]]
+- [3, mv_2, [指定席券売機]]
+- [4, pos_2-4-6, [ＰＯＳきっぷうりば]]
+- [5, em_2, [多機能券売機]]
+- [6, eki-tabi, [駅たびコンシェルジュ*]]
+- [6, tsc, [TAKANAWA GATEWAY*]]
+エリア:
+- ID: shinkansen
+  名称: 新幹線
+  路線:
+  - 名称: 東北新幹線
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - omiya
+    - oyama
+    - utsunomiya
+    - nasushiobara
+    - shin-shirakawa
+    - hoku_koriyama
+    - hoku_fukushima
+    - shiroishizao
+    - sendai
+    - furukawa
+    - kurikoma-kogen
+    - ichinoseki
+    - mizusawaesashi
+    - kitakami
+    - shin-hanamaki
+    - morioka
+    - iwate-numakunai
+    - ninohe
+    - hachinohe
+    - shichinohe-towada
+    - shin-aomori
+  - 名称: 上越新幹線
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - omiya
+    - kumagaya
+    - honjowaseda
+    - takasaki
+    - jomo-kogen
+    - {駅: echigo-yuzawa, アイコン: [none, amv_2, mv_2, none, none, none]}
+    - urasa
+    - nagaoka
+    - tsubamesanjo
+    - niigata
+    - gala-yuzawa
+  - 名称: 北陸新幹線（長野経由）
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - omiya
+    - kumagaya
+    - honjowaseda
+    - takasaki
+    - annakaharuna
+    - karuizawa
+    - sakudaira
+    - riku_ueda
+    - nagano
+    - iiyama
+    - joetsumyoko
+- ID: shutoken
+  名称: 首都圏エリア
+  路線:
+  - 名称: 吾妻線
+    駅: [takasaki, takasakitonyamachi, ino, shim-maebashi, gumma-soja, yagihara, shibukawa, nakanojo, naganoharakusatsuguchi]
+  - HTML: <p>◆赤羽線は<a href="#saikyo-line">埼京線</a>を参照してください。</p>
+  - 名称: 五日市線
+    駅: [tachikawa, nishi-tachikawa, higashi-nakagami, nakagami, akishima, haijima, higashi-akiru, akigawa, musashi-hikida, musashi-masuko, musashi-itsukaichi]
+  - 名称: 伊東線
+    駅:
+    - {駅: atami, 表示名: 熱海}
+    - ajiro
+    - ito
+  - 名称: 内房線
+    駅: [chiba, hon-chiba, soga, hamano, yawatajuku, goi, anegasaki, nagaura, sodegaura, iwane, kisarazu, kimitsu, aohori, tateyama, emi, awa-kamogawa]
+  - 名称: 宇都宮線（東北線）
+    ID: utsunomiya-line
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - oku
+    - akabane
+    - urawa
+    - saitama-shintoshin
+    - omiya
+    - toro
+    - higashi-omiya
+    - {駅: hasuda, 表示名: 蓮田}
+    - shiraoka
+    - shin-shiraoka
+    - {駅: kuki, アイコン: [temporary_to, amv_2, mv_2, none, em_2, none]}
+    - higashi-washinomiya
+    - kurihashi
+    - koga
+    - nogi
+    - mamada
+    - oyama
+    - koganei
+    - jichi-medical-university
+    - ishibashi
+    - suzumenomiya
+    - utsunomiya
+    - okamoto
+    - hoshakuji
+    - ujiie
+    - yaita
+    - hoku_nozaki
+    - nishi-nasuno
+    - nasushiobara
+    - kuroiso
+  - HTML: <p>◆宇都宮線東京～大宮間は<a href="#keihintohoku-line">京浜東北線</a>も参照してください。</p>
+  - 名称: 青梅線（東京アドベンチャーライン）
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - kanda
+    - ochanomizu
+    - yotsuya
+    - shinjuku
+    - nakano
+    - koenji
+    - asagaya
+    - ogikubo
+    - nishi-ogikubo
+    - kichijoji
+    - mitaka
+    - musashi-sakai
+    - higashi-koganei
+    - musashi-koganei
+    - kokubunji
+    - nishi-kokubunji
+    - kunitachi
+    - tachikawa
+    - nishi-tachikawa
+    - higashi-nakagami
+    - nakagami
+    - akishima
+    - haijima
+    - ushihama
+    - fussa
+    - hamura
+    - ozaku
+    - kabe
+    - higashi-ome
+    - ome
+    - oku-tama
+  - 名称: 鹿島線
+    駅: [sawara, kashimajingu]
+  - 名称: 烏山線
+    駅: [utsunomiya, okamoto, hoshakuji]
+  - 名称: 川越線
+    駅:
+    - omiya
+    - kawa_nisshin
+    - nishi-omiya
+    - sashiogi
+    - minami-furuya
+    - {駅: kawagoe, アイコン: [temporary_to, amv_2, mv_2, none, em_2, none]}
+    - matoba
+    - kasahata
+    - musashi-takahagi
+    - komagawa
+  - 名称: 久留里線
+    駅: [kisarazu, kururi]
+  - 名称: 京浜東北線
+    ID: keihintohoku-line
+    駅:
+    - omiya
+    - saitama-shintoshin
+    - yono
+    - kita-urawa
+    - urawa
+    - minami-urawa
+    - warabi
+    - nishi-kawaguchi
+    - {駅: kawaguchi, アイコン: [temporary_to, amv_2, mv_2, none, em_2, none]}
+    - akabane
+    - higashi-jujo
+    - oji
+    - kami-nakazato
+    - tabata
+    - nishi-nippori
+    - nippori
+    - uguisudani
+    - ueno
+    - okachimachi
+    - akihabara
+    - kanda
+    - {駅: tokyo, 表示名: 東京}
+    - yurakucho
+    - shimbashi
+    - hamamatsucho
+    - tamachi
+    - {駅: takanawa-gateway, 表示名: 高輪ｹﾞｰﾄｳｪｲ}
+    - {駅: shinagawa, 表示名: 品川}
+    - oimachi
+    - omori
+    - kamata
+    - kawasaki
+    - tsurumi
+    - shin-koyasu
+    - higashi-kanagawa
+    - yokohama
+  - 名称: 京葉線
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - hatchobori
+    - etchujima
+    - shiomi
+    - shin-kiba
+    - kasai-rinkai-park
+    - {駅: maihama, アイコン: [to_1-2-4-5-6, none, mv_2, none, em_2, none]}
+    - shin-urayasu
+    - ichikawashiohama
+    - minami-funabashi
+    - shin-narashino
+    - makuharitoyosuna
+    - kaihimmakuhari
+    - kemigawahama
+    - inagekaigan
+    - chibaminato
+    - soga
+    - nishi-funabashi
+  - 名称: 埼京線
+    ID: saikyo-line
+    駅: [osaki, ebisu, shibuya, shinjuku, ikebukuro, itabashi, jujo, akabane, kita-akabane, ukimafunado, toda-koen, hoku_toda, kita-toda, musashi-urawa, naka-urawa, minami-yono, yono-hommachi, kita-yono,
+      omiya]
+  - 名称: 相模線
+    駅: [chigasaki, kita-chigasaki, kagawa, samukawa, miyayama, ebina, sobudaishita, harataima, banda, kamimizo, minami-hashimoto, yoko_hashimoto]
+  - 名称: 上越新幹線（首都圏）
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - omiya
+    - kumagaya
+    - honjowaseda
+    - takasaki
+    - jomo-kogen
+  - 名称: 上越線（首都圏）
+    駅: [takasaki, takasakitonyamachi, ino, shim-maebashi, gumma-soja, yagihara, shibukawa, numata, minakami]
+  - 名称: 常磐線（首都圏）
+    駅:
+    - {駅: shinagawa, 表示名: 品川}
+    - shimbashi
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - nippori
+    - mikawashima
+    - minami-senju
+    - kita-senju
+    - matsudo
+    - kashiwa
+    - abiko
+    - tennodai
+    - toride
+    - fujishiro
+    - ryugasakishi
+    - ushiku
+    - hitachinoushiku
+    - arakawaoki
+    - tsuchiura
+    - kandatsu
+    - takahama
+    - ishioka
+    - hatori
+    - iwama
+    - tomobe
+    - uchihara
+    - akatsuka
+    - mito
+    - katsuta
+    - sawa
+    - tokai
+    - omika
+    - hitachi-taga
+    - hitachi
+    - ogitsu
+    - juo
+    - takahagi
+    - isohara
+    - nakoso
+    - jo_ueda
+    - izumi
+    - yumoto
+    - iwaki
+  - HTML: <p>◆常磐線北千住～取手間は<a href="#joban-line-local">常磐線各駅停車</a>も参照してください。</p>
+  - 名称: 常磐線（快速）
+    駅:
+    - {駅: shinagawa, 表示名: 品川}
+    - shimbashi
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - nippori
+    - mikawashima
+    - minami-senju
+    - kita-senju
+    - matsudo
+    - kashiwa
+    - abiko
+    - tennodai
+    - toride
+  - 名称: 常磐線各駅停車
+    ID: joban-line-local
+    駅: [kita-senju, kameari, kanamachi, matsudo, kita-matsudo, mabashi, shim-matsudo, kita-kogane, minami-kashiwa, kashiwa, kita-kashiwa, abiko, tennodai, toride]
+  - 名称: 信越本線（首都圏）
+    駅: [takasaki, kita-takasaki, annaka, isobe]
+  - 名称: 水郡線
+    駅: [mito, kami-sugaya, urizura, hitachi-omiya, tamagawamura, yamagatajuku, kami-ogawa, fukuroda, hitachi-daigo, higashidate, iwaki-hanawa, iwaki-asakawa, iwaki-ishikawa, hoku_koriyama, hitachi-ota]
+  - 名称: 相鉄・JR直通線
+    駅: [shinjuku, shibuya, ebisu, osaki, nishi-oi, musashi-kosugi]
+  - 名称: 総武線（快速）
+    ID: sobu-line-rapid
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - shin-nihombashi
+    - bakurocho
+    - kinshicho
+    - shin-koiwa
+    - ichikawa
+    - funabashi
+    - tsudanuma
+    - inage
+    - chiba
+  - 名称: 総武本線
+    駅: [chiba, higashi-chiba, tsuga, yotsukaido, monoi, sakura, yachimata, hyuga, naruto, matsuo, yokoshiba, yokaichiba, higata, so_asahi, matsugishi, choshi]
+  - HTML: <p>◆総武本線東京～千葉間は<a href="#sobu-line-rapid">総武線（快速）</a>を参照してください。</p>
+  - HTML: "<p>\n\t\t\t\t\t◆総武本線御茶ノ水～千葉間は<a href=\"#chuo-sobu-line-local\">中央・総武線各駅停車</a>を参照してください。\n\t\t\t\t</p>"
+  - 名称: 外房線
+    駅: [chiba, hon-chiba, soga, kamatori, honda, toke, oami, nagata, shim-mobara, mobara, yatsumi, kazusa-ichinomiya, taito, chojamachi, ohara, katsuura, kazusa-okitsu, awa-kamogawa]
+  - 名称: 高崎線
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - oku
+    - akabane
+    - urawa
+    - saitama-shintoshin
+    - omiya
+    - miyahara
+    - ageo
+    - kita-ageo
+    - okegawa
+    - kitamoto
+    - konosu
+    - kita-konosu
+    - fukiage
+    - gyoda
+    - kumagaya
+    - {駅: kagohara, アイコン: [none, amv_2, mv_2, none, em_2, none]}
+    - fukaya
+    - okabe
+    - honjo
+    - jimbohara
+    - shimmachi
+    - kuragano
+    - takasaki
+  - 名称: 中央線（快速）
+    ID: chuo-line-rapid
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - kanda
+    - ochanomizu
+    - yotsuya
+    - shinjuku
+    - nakano
+    - koenji
+    - asagaya
+    - ogikubo
+    - nishi-ogikubo
+    - kichijoji
+    - mitaka
+    - musashi-sakai
+    - higashi-koganei
+    - musashi-koganei
+    - kokubunji
+    - nishi-kokubunji
+    - kunitachi
+    - tachikawa
+    - hino
+    - toyoda
+    - hachioji
+    - nishi-hachioji
+    - takao
+  - 名称: 中央・総武線各駅停車
+    ID: chuo-sobu-line-local
+    駅: [chiba, nishi-chiba, inage, shin-kemigawa, makuhari, makuharihongo, tsudanuma, higashi-funabashi, funabashi, nishi-funabashi, shimosa-nakayama, moto-yawata, ichikawa, koiwa, shin-koiwa, hirai, kameido,
+      kinshicho, ryogoku, asakusabashi, akihabara, ochanomizu, suidobashi, iidabashi, ichigaya, yotsuya, shinanomachi, sendagaya, yoyogi, shinjuku, chu_okubo, higashi-nakano, nakano, koenji, asagaya, ogikubo,
+      nishi-ogikubo, kichijoji, mitaka]
+  - 名称: 中央本線（首都圏）
+    駅: [takao, sagamiko, fujino, uenohara, shiotsu, otsuki, katsunumabudokyo, enzan, yamanashishi, isawa-onsen, kofu, ryuo, nirasaki, kobuchizawa]
+  - HTML: <p>◆中央本線東京～高尾間は<a href="#chuo-line-rapid">中央線（快速）</a>を参照してください。</p>
+  - HTML: "<p>\n\t\t\t\t\t◆中央本線御茶ノ水～三鷹間は<a href=\"#chuo-sobu-line-local\">中央・総武線各駅停車</a>を参照してください。\n\t\t\t\t</p>"
+  - 名称: 鶴見線
+    駅: [tsurumi]
+  - 名称: 東海道線
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - shimbashi
+    - {駅: shinagawa, 表示名: 品川}
+    - kawasaki
+    - yokohama
+    - totsuka
+    - ofuna
+    - fujisawa
+    - tsujido
+    - chigasaki
+    - hiratsuka
+    - oiso
+    - ninomiya
+    - kozu
+    - kamonomiya
+    - {駅: odawara, 表示名: 小田原}
+    - manazuru
+    - yugawara
+    - {駅: atami, 表示名: 熱海}
+  - HTML: <p>◆東海道本線（品鶴線）品川～鶴見間は<a href="#yokosuka-line">横須賀線</a>を参照してください。</p>
+  - HTML: <p>◆東海道線東京～横浜間は<a href="#keihintohoku-line">京浜東北線</a>も参照してください。</p>
+  - HTML: <p>◆東海道線横浜～戸塚間は<a href="#yokosuka-line">横須賀線</a>も参照してください。</p>
+  - 名称: 東金線
+    駅: [oami, togane, naruto]
+  - 名称: 東北新幹線（首都圏）
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - omiya
+    - oyama
+    - utsunomiya
+    - nasushiobara
+  - 名称: 東北本線（首都圏）
+    駅: [kuroiso]
+  - HTML: <p>◆東北本線東京～黒磯間は<a href="#utsunomiya-line">宇都宮線（東北線）</a>を参照してください。</p>
+  - HTML: <p>◆東北本線東京～大宮間は<a href="#keihintohoku-line">京浜東北線</a>を参照してください。</p>
+  - HTML: <p>◆東北本線赤羽～大宮間は<a href="#saikyo-line">埼京線</a>を参照してください。</p>
+  - 名称: 成田線
+    ID: narita-line
+    駅: [chiba, higashi-chiba, tsuga, yotsukaido, monoi, sakura, shisui, narita, narita-airport-terminal-2and3, narita-airport-terminal-1, namegawa, sawara, matsugishi, choshi]
+  - HTML: "<p>\n\t\t\t\t\t◆成田線成田～我孫子間は<a href=\"#narita-line-abiko-branch\">成田線我孫子支線</a>を参照してください。\n\t\t\t\t</p>"
+  - 名称: 成田線我孫子支線
+    ID: narita-line-abiko-branch
+    駅: [narita, ajiki, nari_kobayashi, kioroshi, fusa, kohoku, abiko]
+  - HTML: <p>◆成田線佐倉～銚子間・成田～成田空港間は<a href="#narita-line">成田線</a>を参照してください。</p>
+  - 名称: 南武線
+    駅: [kawasaki, shitte, yako, kashimada, hirama, mukaigawara, musashi-kosugi, musashi-nakahara, musashi-shinjo, musashi-mizonokuchi, tsudayama, nam_kuji, shukugawara, noborito, nakanoshima, inadazutsumi,
+      yanokuchi, inaginaganuma, minami-tama, fuchuhommachi, nishifu, yaho, yagawa, nishi-kunitachi, tachikawa]
+  - 名称: 南武支線
+    駅: [shitte]
+  - 名称: 日光線
+    駅: [utsunomiya, tsuruta, kanuma, imaichi, nikko]
+  - 名称: 根岸線
+    駅: [yokohama, sakuragicho, kannai, ishikawacho, yamate, gishi_negishi, isogo, shin-sugita, yokodai, konandai, hongodai, ofuna]
+  - 名称: 八高線
+    駅: [hachioji, kita-hachioji, haijima, hakonegasaki, higashi-hanno, komagawa, gumma-fujioka, kuragano, takasaki]
+  - 名称: 北陸新幹線（首都圏）
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - ueno
+    - omiya
+    - kumagaya
+    - honjowaseda
+    - takasaki
+    - annakaharuna
+  - 名称: 水戸線
+    駅: [oyama, yuki, shimodate, iwase, kasama, shishido, tomobe, uchihara, akatsuka, mito, katsuta]
+  - 名称: 武蔵野線
+    駅:
+    - fuchuhommachi
+    - kita-fuchu
+    - nishi-kokubunji
+    - shin-kodaira
+    - shin-akitsu
+    - higashi-tokorozawa
+    - niiza
+    - {駅: kita-asaka, アイコン: [temporary_to, amv_2, mv_2, none, em_2, none]}
+    - nishi-urawa
+    - musashi-urawa
+    - minami-urawa
+    - higashi-urawa
+    - higashi-kawaguchi
+    - {駅: minami-koshigaya, アイコン: [temporary_to, amv_2, mv_2, none, em_2, none]}
+    - {駅: koshigaya-laketown, 表示名: 越谷ﾚｲｸﾀｳﾝ}
+    - yoshikawa
+    - yoshikawaminami
+    - shim-misato
+    - musashi_misato
+    - minami-nagareyama
+    - shim-matsudo
+    - shin-yahashira
+    - higashi-matsudo
+    - ichikawaono
+    - {駅: funabashihoten, アイコン: [none, none, mv_2, none, em_2, none]}
+    - nishi-funabashi
+  - 名称: 山手線
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - kanda
+    - akihabara
+    - okachimachi
+    - ueno
+    - uguisudani
+    - nippori
+    - nishi-nippori
+    - tabata
+    - komagome
+    - sugamo
+    - otsuka
+    - ikebukuro
+    - mejiro
+    - takadanobaba
+    - shin-okubo
+    - shinjuku
+    - yoyogi
+    - harajuku
+    - shibuya
+    - ebisu
+    - meguro
+    - gotanda
+    - osaki
+    - {駅: shinagawa, 表示名: 品川}
+    - {駅: takanawa-gateway, 表示名: 高輪ｹﾞｰﾄｳｪｲ}
+    - tamachi
+    - hamamatsucho
+    - shimbashi
+    - yurakucho
+  - 名称: 横須賀線
+    ID: yokosuka-line
+    駅:
+    - {駅: tokyo, 表示名: 東京}
+    - shimbashi
+    - {駅: shinagawa, 表示名: 品川}
+    - nishi-oi
+    - musashi-kosugi
+    - shin-kawasaki
+    - yokohama
+    - hodogaya
+    - higashi-totsuka
+    - totsuka
+    - ofuna
+    - kita-kamakura
+    - kamakura
+    - zushi
+    - higashi-zushi
+    - taura
+    - yokosuka
+    - kinugasa
+    - kurihama
+  - 名称: 横浜線
+    駅:
+    - sakuragicho
+    - yokohama
+    - higashi-kanagawa
+    - oguchi
+    - kikuna
+    - {駅: shin-yokohama, 表示名: 新横浜}
+    - kozukue
+    - kamoi
+    - nakayama
+    - tokaichiba
+    - nagatsuta
+    - naruse
+    - machida
+    - kobuchi
+    - fuchinobe
+    - yabe
+    - sagamihara
+    - yoko_hashimoto
+    - aihara
+    - hachiojiminamino
+    - katakura
+    - hachioji
+  - 名称: 両毛線
+    駅: [oyama, tochigi, sano, ashikaga, kiryu, kunisada, isesaki, komagata, maebashioshima, maebashi, shim-maebashi, ino, takasakitonyamachi, takasaki]
+  - 名称: 【愛称】上野東京ライン
+    駅:
+    - omiya
+    - saitama-shintoshin
+    - urawa
+    - akabane
+    - oku
+    - ueno
+    - {駅: tokyo, 表示名: 東京}
+    - shimbashi
+    - {駅: shinagawa, 表示名: 品川}
+    - kawasaki
+    - yokohama
+    - totsuka
+    - ofuna
+  - 名称: 【愛称】湘南新宿ライン
+    駅: [omiya, urawa, akabane, ikebukuro, shinjuku, shibuya, ebisu, osaki, nishi-oi, musashi-kosugi, shin-kawasaki, yokohama, hodogaya, higashi-totsuka, totsuka, ofuna]
+- ID: shinetsu
+  名称: 信越エリア
+  路線:
+  - 名称: 飯山線
+    駅: [nagano, toyono, shinano-asano, iiyama, togarinozawa-onsen, shinano-shiratori, hirataki, yokokura, morimiyanohara, tsunan, tokamachi, ojiya, nagaoka]
+  - 名称: 羽越本線（信越）
+    駅: [niitsu, shibata, nakajo, sakamachi, murakami]
+  - 名称: 越後線
+    駅: [kashiwazaki, teradomari, yoshida, maki, uchino, niigata-university, terao, kobari, sekiya, hakusan, niigata]
+  - 名称: 大糸線
+    駅: [matsumoto, azusabashi, hitoichiba, nakagaya, minami-toyoshina, toyoshina, hakuyacho, hotaka, ariake, azumi-oiwake, shinano-matsukawa, shinano-omachi, kamishiro, hakuba, minami-otari]
+  - 名称: 小海線
+    駅: [kobuchizawa, nobeyama, shinano-kawakami, koumi, yachiho, haguroshita, usuda, nakagomi, iwamurada, sakudaira, komoro]
+  - 名称: 篠ノ井線
+    駅: [shiojiri, hirooka, murai, hirata, minami-matsumoto, matsumoto, tazawa, akashina, shino_nishijo, sakakita, hijiri-kogen, kamuriki, shinonoi]
+  - 名称: 上越新幹線（信越）
+    駅:
+    - {駅: echigo-yuzawa, アイコン: [none, amv_2, mv_2, none, none, none]}
+    - urasa
+    - nagaoka
+    - tsubamesanjo
+    - niigata
+    - gala-yuzawa
+  - 名称: 上越線（信越）
+    駅:
+    - {駅: echigo-yuzawa, アイコン: [none, amv_2, mv_2, none, none, none]}
+    - muikamachi
+    - urasa
+    - koide
+    - ojiya
+    - nagaoka
+  - 名称: 信越本線（信越）
+    駅: [shinonoi, imai, kawanakajima, nagano, naoetsu, kashiwazaki, nagaoka, mitsuke, higashi-sanjo, shin_kamo, niitsu, ogikawa, kameda, niigata]
+  - 名称: 中央本線（信越）
+    駅: [fujimi, chino, kami-suwa, shimo-suwa, okaya, shiojiri, tatsuno, chu_ono]
+  - 名称: 白新線
+    駅: [niigata, higashi-niigata, toyosaka, shibata]
+  - 名称: 北陸新幹線（信越）
+    駅: [karuizawa, sakudaira, riku_ueda, nagano, iiyama, joetsumyoko]
+  - 名称: 弥彦線
+    駅: [higashi-sanjo, tsubamesanjo, yoshida]
+- ID: tohoku
+  名称: 東北エリア
+  路線:
+  - 名称: 秋田新幹線
+    駅: [morioka, shizukuishi, tazawako, kakunodate, omagari, akita]
+  - 名称: 左沢線（フルーツライン左沢線）
+    駅: [yamagata, kita-yamagata, uzen-nagasaki, sagae, aterazawa]
+  - 名称: 石巻線
+    駅: [kogota, ishinomaki, onagawa]
+  - 名称: 羽越本線（東北）
+    駅: [atsumi-onsen, tsuruoka, fujishima, amarume, sakata, yuza, kisakata, konoura, nikaho, ugo-honjo, araya, ugo-ushijima, akita]
+  - 名称: 奥羽本線（山形線）
+    駅: [hoku_fukushima, yonezawa, takahata, akayu, kaminoyamaonsen, yamagata, kita-yamagata, tendo, sakurambohigashine, murayama, oishida, ashisawa, funagata, shinjo, mamurogawa, yuzawa, jumonji, yokote,
+      iizume, omagari, jinguji, kariwano, mineyoshikawa, ugo-sakai, wada, akita, tsuchizaki, ou_oiwake, ou_okubo, ugo-iizuka, ikawasakura, hachirogata, kado, moritake, higashi-noshiro, futatsui, takanosu,
+      hayaguchi, odate, ikarigaseki, owanionsen, hirosaki, kita-tokiwa, namioka, shin-aomori, aomori]
+  - 名称: 大船渡線（ドラゴンレール大船渡線）
+    駅: [ichinoseki, kesennuma]
+  - 名称: 大船渡線ＢＲＴ
+    駅: [kesennuma, rikuzen-takata, sakari]
+  - 名称: 大湊線（はまなすベイライン大湊線）
+    駅: [shimokita, ominato]
+  - 名称: 男鹿線（男鹿なまはげライン）
+    駅: [ou_oiwake, futada, oga]
+  - 名称: 釜石線（銀河ドリームライン釜石線）
+    駅: [hanamaki, shin-hanamaki, tono, kamaishi]
+  - 名称: 北上線
+    駅: [kitakami, hotto-yuda, ainono, yokote]
+  - 名称: 気仙沼線
+    駅: [rikuzen-toyosato]
+  - 名称: 気仙沼線ＢＲＴ
+    駅: [shizugawa, kesennuma]
+  - 名称: 五能線
+    駅: [higashi-noshiro, noshiro, akitashirakami, ajigasawa, mutsu-morita, kizukuri, goshogawara, hirosaki]
+  - 名称: 常磐線（東北）
+    駅:
+    - iwaki
+    - yotsukura
+    - jo_hirono
+    - tatsuta
+    - tomioka
+    - ono
+    - futaba
+    - namie
+    - {駅: haranomachi, アイコン: [temporary_to, amv_2, none, none, none, none]}
+    - soma
+    - shinchi
+    - sakamoto
+    - watari
+    - iwanuma
+    - tatekoshi
+    - natori
+    - minami-sendai
+    - taishido
+    - nagamachi
+    - sendai
+  - 名称: 仙山線
+    駅: [sendai, kita-sendai, tohoku-fukushi-university, kunimi, rikuzen-ochiai, ayashi, sakunami, kita-yamagata, yamagata]
+  - 名称: 仙石線（仙石東北ライン※1）
+    駅: [aobadori, sendai, miyaginohara, rikuzen-haranomachi, kozurushinden, rikuzen-takasago, nakanosakae, tagajo, hon-shiogama, higashi-shiogama, matsushimakaigan, takagimachi, yamoto, ishinomaki]
+  - 名称: 田沢湖線
+    駅: [morioka, shizukuishi, tazawako, kakunodate, ugo-nagano, omagari]
+  - 名称: 只見線
+    駅: [aizu-wakamatsu, nishi-wakamatsu, aizu-bange, aizu-kawaguchi, tadami, koide]
+  - 名称: 津軽線
+    駅: [aomori, kanita]
+  - 名称: 東北新幹線（東北）
+    駅: [shin-shirakawa, hoku_koriyama, hoku_fukushima, shiroishizao, sendai, furukawa, kurikoma-kogen, ichinoseki, mizusawaesashi, kitakami, shin-hanamaki, morioka, iwate-numakunai, ninohe, hachinohe, shichinohe-towada,
+      shin-aomori]
+  - 名称: 東北本線（東北・仙石東北ライン※1）
+    駅: [shin-shirakawa, shirakawa, kagamiishi, sukagawa, hoku_koriyama, motomiya, nihommatsu, adachi, matsukawa, minami-fukushima, hoku_fukushima, hoku_shiroishi, hoku_ogawara, hoku_funaoka, iwanuma, tatekoshi,
+      natori, minami-sendai, taishido, nagamachi, sendai, higashi-sendai, iwakiri, rifu, shiogama, shinainuma, matsuyamamachi, kogota, semine, ichinoseki, hiraizumi, mizusawa, kitakami, hanamaki, shiwa-chuo,
+      yahaba, iwate-iioka, morioka]
+  - 名称: 八戸線（うみねこレール八戸市内線）
+    駅: [hachinohe, hon-hachinohe, same, hachi_kuji]
+  - 名称: 花輪線（十和田八幡平四季彩ライン）
+    駅: [morioka, obuke, kazunohanawa, odate]
+  - 名称: 磐越西線（森と水とロマンの鉄道）
+    駅:
+    - hoku_koriyama
+    - inawashiro
+    - bandaimachi
+    - aizu-wakamatsu
+    - shiokawa
+    - {駅: kitakata, アイコン: [to_1-2-4-5-6, none, none, none, none, none]}
+    - yamato
+    - ogino
+    - nozawa
+    - gosen
+    - niitsu
+  - 名称: 磐越東線（ゆうゆうあぶくまライン）
+    駅: [iwaki, funehiki, hoku_koriyama]
+  - 名称: 山形新幹線
+    駅: [hoku_fukushima, yonezawa, takahata, akayu, kaminoyamaonsen, yamagata, tendo, sakurambohigashine, murayama, oishida, shinjo]
+  - 名称: 山田線
+    駅: [morioka, miyako]
+  - 名称: 米坂線
+    駅:
+    - yonezawa
+    - uzen-komatsu
+    - imaizumi
+    - uzen-tsubaki
+    - {駅: oguni, アイコン: [to_1-2-4-5-6, none, none, none, none, none]}
+    - sakamachi
+  - 名称: 陸羽西線（奥の細道最上川ライン）
+    駅: [shinjo, furukuchi, karikawa, amarume, sakata]
+  - 名称: 陸羽東線（奥の細道湯けむりライン）
+    駅: [kogota, furukawa, nishi-furukawa, naruko-goten-yu, naruko-onsen, mogami, shinjo]
+  - 名称: 【愛称】仙石東北ライン
+    注記: ※1：仙石東北ラインは東北本線（仙台～松島・松島～高城町）、仙石線（高城町～石巻）からなる路線愛称です。なお、松島駅は全列車通過扱いとなります。
+    駅: [sendai, higashi-sendai, iwakiri, shiogama, takagimachi, yamoto, ishinomaki]
+付記HTML: |-
+  <div class="station-container">
+  <h3>JR東日本管内の業務委託駅に関して</h3>
+  <h4>委託先企業</h4>
+  <h5>首都圏エリア</h5>
+  <ul>
+  <li>株式会社JR東日本ステーションサービス（JESS）</li>
+  <li>株式会社JR中央線コミュニティデザイン（JRCCD）</li>
+  <li>日本郵便株式会社（日本郵便）</li>
+  </ul>
+  <h5>信越エリア</h5>
+  <ul>
+  <li>株式会社ステーションビルMIDORI（MIDORI）</li>
+  <li>JR東日本新潟シティクリエイト株式会社（JENIC）</li>
+  </ul>
+  <h5>東北エリア</h5>
+  <ul>
+  <li>JR東日本東北総合サービス株式会社（LiViT）</li>
+  </ul>
+  <h3>駅業務他社委託駅（他社委託駅）について</h3>
+  <p>※一部委託駅は除きます。</p>
+  <h5>首都圏エリア</h5>
+  <ul>
+  <li>綾瀬（東京メトロ）</li>
+  <li>分倍河原（京王電鉄）</li>
+  <li>八丁畷（京急電鉄）</li>
+  <li>厚木（小田急電鉄）</li>
+  <li>小川町（東武鉄道）</li>
+  <li>寄居（秩父鉄道）</li>
+  </ul>
+  <h5>信越エリア</h5>
+  <ul>
+  <li><a href="komoro.html">小諸（しなの鉄道）</a></li>
+  <li><a href="toyono.html">豊野（しなの鉄道）</a></li>
+  <li><a href="naoetsu.html">直江津（えちごトキめき鉄道）</a></li>
+  </ul>
+  <h5>東北エリア</h5>
+  <ul>
+  <li><a href="nishi-wakamatsu.html">西若松（会津鉄道）</a></li>
+  <li><a href="miyako.html">宮古（三陸鉄道）</a></li>
+  <li>好摩（IGRいわて銀河鉄道）</li>
+  <li>野辺地（青い森鉄道）</li>
+  </ul>
+  </div>
