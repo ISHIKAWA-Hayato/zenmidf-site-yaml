@@ -20,7 +20,10 @@ jobs:
           python-version: "3.12"
       - run: pip install pyyaml jinja2 pillow pillow-heif
 
+      # shell: bash を明示すると pipefail が付き、tee の前の build.py が失敗したときにこの確認も失敗になる
+      # （明示しないと tee の終了コードだけで判定され、生成に失敗しても「成功」になってしまう）
       - name: ページを生成できるか
+        shell: bash
         run: python tools/build.py | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: inbox の写真を取り込めるか（試すだけ。取り込みはマージ後に Actions がする）
