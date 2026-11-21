@@ -129,3 +129,61 @@
       アイコン: [to_1-2-4-5-6, none, mv_4, none, none, none]
   - 名称: 名松線
     駅: [matsusaka, ieki]
+- ID: shizuoka
+  名称: 静岡エリア
+  路線:
+  - 名称: 御殿場線
+    駅:
+    - {他社駅: 02-East-Japan/kozu}
+    - shimosoga
+    - matsuda
+    - gotemba
+    - fujioka
+    - iwanami
+    - susono
+    - shimotogari
+    - ooka
+  - 名称: 東海道本線（静岡）
+    駅:
+    - {他社駅: 02-East-Japan/atami}
+    - kannami
+    - katahama
+    - hara
+    - yoshiwara
+    - fuji
+    - okitsu
+    - shimizu
+    - kusanagi
+    - higashi-shizuoka
+    - abekawa
+    - mochimune
+    - yaizu
+    - nishi-yaizu
+    - fujieda
+    - rokugo
+    - to_shimada
+    - kanaya
+    - kikugawa
+    - aino
+    - fukuroi
+    - mikuriya
+    - iwata
+    - toyodacho
+    - tenryugawa
+    - takatsuka
+    - maisaka
+    - bentenjima
+    - araimachi
+    - washizu
+    - shinjohara
+  - 名称: 身延線
+    駅:
+    - fuji
+    - tatebori
+    - iriyamase
+    - fujinomiya
+    - nishi-fujinomiya
+    - minobu
+    - higashi-hanawa
+    - minami-kofu
+    - {他社駅: 02-East-Japan/kofu}
