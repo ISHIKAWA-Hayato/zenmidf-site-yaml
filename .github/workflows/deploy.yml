@@ -33,6 +33,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # 本番に出すのは main だけ。
+      # 「Run workflow」で PR のブランチを選ぶと、そのブランチ（main＋その PR の変更だけ）で本番を上書きしてしまい、
+      # 直前に別のブランチから上げた変更が元に戻る（2026-11-20 に小国・盛岡で発生）。
+      # また駅写真の書き戻しは main へ push するので、PR のブランチから動かすと確認なしで main に入りうる
+      - name: main 以外からは動かさない
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::本番への公開は main からだけ行います（選ばれたブランチ：${{ github.ref_name }}）。PR の中身は「PR の確認」で確かめ、マージすれば自動で公開されます"
+          exit 1
+
       # main は保護されていて、Actions の既定のトークンでは書き戻せない。
       # 代表の個人用アクセストークン（Secrets の WRITEBACK_TOKEN、このリポジトリの Contents 読み書きだけ）で書き戻す
       - name: リポジトリを取得
