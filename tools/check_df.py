@@ -37,7 +37,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 # DFの「所属会社」→ 駅データのフォルダ（data/ からの相対）
 COMPANY = {
-    "西日本": "04-West-Japan", "四国": "05-Shikoku", "九州": "06-Kyushu",
+    "東海": "03-Central-Japan", "西日本": "04-West-Japan", "四国": "05-Shikoku", "九州": "06-Kyushu",
     "伊豆急行": "99-Others/21-Izukyu", "WILLER TRAINS": "99-Others/22-WILLER-TRAINS",
     "IRいしかわ鉄道": "99-Others/31-IR-Ishikawa", "あいの風とやま鉄道": "99-Others/32-Ainokaze-Toyama",
     "えちごトキめき鉄道": "99-Others/33-Echigo-Tokimeki", "土佐くろしお鉄道": "99-Others/34-Tosa-Kuroshio",
@@ -190,9 +190,16 @@ def load_df(path):
             continue
         rows = list(wb[sheet].iter_rows(values_only=True))
         head = [str(h).strip() if h is not None else "" for h in rows[1]]
+        prev = None
         for r in rows[2:]:
+            # 結合セルの2段目（三島【北口】、松田【南口】など）は No・所属会社などが空で読める。上の行から引き継ぐ
+            if prev and len(r) >= 7 and not r[1] and r[2] is None and r[6] \
+                    and norm_name(r[6]) == norm_name(prev[6]):
+                r = tuple(prev[i] if i in (1, 2, 3, 4, 5) else v for i, v in enumerate(r))
             if len(r) < 7 or not r[1] or not re.match(r"^\d-", str(r[1]).strip()):
+                prev = None
                 continue
+            prev = r
             d = {h: r[i] for i, h in enumerate(head) if h and i < len(r)}
             d["_no"] = str(r[1]).strip()
             if d.get("所属会社") in COMPANY:
