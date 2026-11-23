@@ -15,6 +15,16 @@
 - [3, mv_3, [指定席券売機]]
 - [6, tokai-tours, [ＪＲ東海ツアーズ*]]
 エリア:
+- ID: shinkansen
+  名称: 新幹線
+  路線:
+  - 名称: 東海道新幹線
+    駅:
+    - atami
+    - hamamatsu
+    - toyohashi
+    - mikawa-anjo
+    - nagoya
 - ID: chukyo
   名称: 中京エリア
   路線:
