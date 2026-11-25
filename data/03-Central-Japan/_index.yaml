@@ -20,11 +20,20 @@
   路線:
   - 名称: 東海道新幹線
     駅:
+    - tokyo
+    - shinagawa
+    - shin-yokohama
+    - odawara
     - atami
+    - mishima
+    - to_shin-fuji
+    - shizuoka
+    - kakegawa
     - hamamatsu
     - toyohashi
     - mikawa-anjo
     - nagoya
+    - gifu-hashima
 - ID: chukyo
   名称: 中京エリア
   路線:
@@ -153,10 +162,13 @@
     - susono
     - shimotogari
     - ooka
+    - numazu
   - 名称: 東海道本線（静岡）
     駅:
     - {他社駅: 02-East-Japan/atami}
     - kannami
+    - mishima
+    - numazu
     - katahama
     - hara
     - yoshiwara
@@ -165,6 +177,7 @@
     - shimizu
     - kusanagi
     - higashi-shizuoka
+    - shizuoka
     - abekawa
     - mochimune
     - yaizu
@@ -174,6 +187,7 @@
     - to_shimada
     - kanaya
     - kikugawa
+    - kakegawa
     - aino
     - fukuroi
     - mikuriya
